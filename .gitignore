@@ -1,0 +1,10 @@
+Debug
+Release
+/bin
+/obj
+/packages
+/nuget
+Generated Files
+*.opensdf
+*.sdf
+*.suo

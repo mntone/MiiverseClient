@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mntone.MiiverseClient", "Mntone.MiiverseClient\Mntone.MiiverseClient.csproj", "{AACE4748-0031-435D-B0C0-A4E1BD656EAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mntone.MiiverseClient.ConsoleDemo", "Mntone.MiiverseClient.ConsoleDemo\Mntone.MiiverseClient.ConsoleDemo.csproj", "{CB635A05-8125-4678-90BA-762A734A050D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AACE4748-0031-435D-B0C0-A4E1BD656EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AACE4748-0031-435D-B0C0-A4E1BD656EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AACE4748-0031-435D-B0C0-A4E1BD656EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AACE4748-0031-435D-B0C0-A4E1BD656EAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB635A05-8125-4678-90BA-762A734A050D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB635A05-8125-4678-90BA-762A734A050D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB635A05-8125-4678-90BA-762A734A050D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB635A05-8125-4678-90BA-762A734A050D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
