@@ -51,7 +51,7 @@ namespace Mntone.MiiverseClient.ConsoleDemo
 						Console.Write(" ");
 						Console.SetCursorPosition(indexMinusOne, Console.CursorTop);
 					}
-					break;
+					continue;
 				}
 
 				Console.Write("*");
