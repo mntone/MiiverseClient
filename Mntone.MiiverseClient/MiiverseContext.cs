@@ -123,7 +123,7 @@ namespace Mntone.MiiverseClient
 							isSpoiler,
 							screenShotUri,
 							new PostUser(userName, screenName, userIconUri, feeling),
-							new Community(titleID, communityID, communityName, communityIconUri)));
+							new PostCommunity(titleID, communityID, communityName, communityIconUri)));
 					}
 					else
 					{
@@ -139,7 +139,7 @@ namespace Mntone.MiiverseClient
 							isSpoiler,
 							screenShotUri,
 							new PostUser(userName, screenName, userIconUri, feeling),
-							new Community(titleID, communityID, communityName, communityIconUri)));
+							new PostCommunity(titleID, communityID, communityName, communityIconUri)));
 					}
 				}
 				return new ActivityResponse(posts);

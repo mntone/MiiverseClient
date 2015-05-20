@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ActivityResponse.cs" />
-    <Compile Include="Community.cs" />
+    <Compile Include="PostCommunity.cs" />
     <Compile Include="FeelingType.cs" />
     <Compile Include="FeelingTypeHelpers.cs" />
     <Compile Include="HtmlAgilityExtensions.cs" />
