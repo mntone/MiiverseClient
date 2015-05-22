@@ -100,6 +100,7 @@ namespace Mntone.MiiverseClient
 					var screenName = userNameAnchorNode.InnerText;
 					var userIconUri = postNode.GetElementByClassName("icon-container").GetImageSource();
 					var feeling = FeelingTypeHelpers.DetectFeelingTypeFromIconUri(userIconUri);
+					var normalUserIconUri = FeelingTypeHelpers.GetNormalFaceIconUri(userIconUri, feeling);
 
 					var communityAnchorNode = postNode.GetElementByClassName("community-container").FirstChild;
 					var communityIconImageNode = communityAnchorNode.GetElementByTagName("img");
@@ -120,7 +121,8 @@ namespace Mntone.MiiverseClient
 							isPlayed,
 							isSpoiler,
 							screenShotUri,
-							new PostUser(userName, screenName, userIconUri, feeling),
+							new PostUser(userName, screenName, normalUserIconUri),
+							feeling,
 							new PostCommunity(titleID, communityID, communityName, communityIconUri)));
 					}
 					else
@@ -134,7 +136,8 @@ namespace Mntone.MiiverseClient
 							isPlayed,
 							isSpoiler,
 							screenShotUri,
-							new PostUser(userName, screenName, userIconUri, feeling),
+							new PostUser(userName, screenName, normalUserIconUri),
+							feeling,
 							new PostCommunity(titleID, communityID, communityName, communityIconUri)));
 					}
 				}

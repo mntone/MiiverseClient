@@ -6,12 +6,11 @@ namespace Mntone.MiiverseClient
 	[DataContract]
 	public sealed class PostUser
 	{
-		internal PostUser(string name, string screenName, Uri iconUri, FeelingType feeling)
+		internal PostUser(string name, string screenName, Uri iconUri)
 		{
 			this.Name = name;
 			this.ScreenName = screenName;
 			this.IconUri = iconUri;
-			this.Feeling = feeling;
 		}
 
 		[DataMember(Name = "name")]
@@ -22,8 +21,5 @@ namespace Mntone.MiiverseClient
 
 		[DataMember(Name = "icon_uri")]
 		public Uri IconUri { get; }
-
-		[DataMember(Name = "feeling")]
-		public FeelingType Feeling { get; }
 	}
 }
