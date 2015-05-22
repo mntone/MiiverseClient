@@ -11,7 +11,14 @@
 			this.Password = password;
 		}
 
+		/// <summary>
+		/// User name (Nintendo Network ID)
+		/// </summary>
 		public string UserName { get; set; }
+
+		/// <summary>
+		/// Password
+		/// </summary>
 		public string Password { get; set; }
 	}
 }

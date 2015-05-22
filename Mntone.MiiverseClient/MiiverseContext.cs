@@ -113,9 +113,7 @@ namespace Mntone.MiiverseClient
 					{
 						posts.Add(new Post(
 							id,
-							tagType,
-							tagID,
-							tag,
+							new PostTag(tagType, tagID, tag),
 							imageUri,
 							replyCount,
 							empathyCount,
@@ -129,9 +127,7 @@ namespace Mntone.MiiverseClient
 					{
 						posts.Add(new Post(
 							id,
-							tagType,
-							tagID,
-							tag,
+							new PostTag(tagType, tagID, tag),
 							text,
 							replyCount,
 							empathyCount,

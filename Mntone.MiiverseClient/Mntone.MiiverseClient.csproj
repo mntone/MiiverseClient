@@ -45,6 +45,7 @@
     <Compile Include="NintendoNetworkAuthenticationToken.cs" />
     <Compile Include="NintendoNetworkSessionToken.cs" />
     <Compile Include="MiiverseOAuthClient.cs" />
+    <Compile Include="PostTag.cs" />
     <Compile Include="PostUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Post.cs" />

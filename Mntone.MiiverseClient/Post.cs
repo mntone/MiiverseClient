@@ -11,21 +11,21 @@ namespace Mntone.MiiverseClient
 		{ }
 
 		internal Post(string id, string text, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, PostCommunity community)
-			: this(id, TagType.None, string.Empty, string.Empty, replyCount, empathyCount, isPlayed, isSpoiler, screenShotUri, user, community)
+			: this(id, null, text, replyCount, empathyCount, isPlayed, isSpoiler, screenShotUri, user, community)
 		{
 			this.Text = text;
 			this.ImageUri = null;
 		}
 
-		internal Post(string id, TagType tagType, string tagID, string tag, string text, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, PostUser user, PostCommunity community)
-			: this(id, tagType, tagID, tag, replyCount, empathyCount, isPlayed, isSpoiler, null, user, community)
+		internal Post(string id, PostTag tag, string text, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, PostUser user, PostCommunity community)
+			: this(id, tag, replyCount, empathyCount, isPlayed, isSpoiler, null, user, community)
 		{
 			this.Text = text;
 			this.ImageUri = null;
 		}
 
-		internal Post(string id, TagType tagType, string tagID, string tag, string text, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, PostCommunity community)
-			: this(id, tagType, tagID, tag, replyCount, empathyCount, isPlayed, isSpoiler, screenShotUri, user, community)
+		internal Post(string id, PostTag tag, string text, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, PostCommunity community)
+			: this(id, tag, replyCount, empathyCount, isPlayed, isSpoiler, screenShotUri, user, community)
 		{
 			this.Text = text;
 			this.ImageUri = null;
@@ -36,31 +36,29 @@ namespace Mntone.MiiverseClient
 		{ }
 
 		internal Post(string id, Uri imageUri, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, PostCommunity community)
-			: this(id, TagType.None, string.Empty, string.Empty, replyCount, empathyCount, isPlayed, isSpoiler, screenShotUri, user, community)
+			: this(id, null, imageUri, replyCount, empathyCount, isPlayed, isSpoiler, screenShotUri, user, community)
 		{
 			this.Text = string.Empty;
 			this.ImageUri = imageUri;
 		}
 
-		internal Post(string id, TagType tagType, string tagID, string tag, Uri imageUri, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, PostUser user, PostCommunity community)
-			: this(id, tagType, tagID, tag, replyCount, empathyCount, isPlayed, isSpoiler, null, user, community)
+		internal Post(string id, PostTag tag, Uri imageUri, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, PostUser user, PostCommunity community)
+			: this(id, tag, replyCount, empathyCount, isPlayed, isSpoiler, null, user, community)
 		{
 			this.Text = null;
 			this.ImageUri = imageUri;
 		}
 
-		internal Post(string id, TagType tagType, string tagID, string tag, Uri imageUri, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, PostCommunity community)
-			: this(id, tagType, tagID, tag, replyCount, empathyCount, isPlayed, isSpoiler, screenShotUri, user, community)
+		internal Post(string id, PostTag tag, Uri imageUri, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, PostCommunity community)
+			: this(id, tag, replyCount, empathyCount, isPlayed, isSpoiler, screenShotUri, user, community)
 		{
 			this.Text = null;
 			this.ImageUri = imageUri;
 		}
 
-		private Post(string id, TagType tagType, string tagID, string tag, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, PostCommunity community)
+		private Post(string id, PostTag tag, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, PostCommunity community)
 		{
 			this.ID = id;
-			this.TagType = tagType;
-			this.TagID = tagID;
 			this.Tag = tag;
 			this.ReplyCount = replyCount;
 			this.EmpathyCount = empathyCount;
@@ -78,22 +76,10 @@ namespace Mntone.MiiverseClient
 		public string ID { get; }
 
 		/// <summary>
-		/// Tag Type
-		/// </summary>
-		[DataMember(Name = "tag_type")]
-		public TagType TagType { get; }
-
-		/// <summary>
-		/// Tag ID
-		/// </summary>
-		[DataMember(Name = "tag_id")]
-		public string TagID { get; }
-
-		/// <summary>
 		/// Tag
 		/// </summary>
 		[DataMember(Name = "tag")]
-		public string Tag { get; }
+		public PostTag Tag { get; }
 
 		/// <summary>
 		/// Text content
