@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Tools.Extensions
 {
 	internal static class UriExtensions
 	{

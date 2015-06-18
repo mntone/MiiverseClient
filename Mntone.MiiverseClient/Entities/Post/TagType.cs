@@ -1,4 +1,4 @@
-﻿namespace Mntone.MiiverseClient
+﻿namespace Mntone.MiiverseClient.Entities.Post
 {
 	public enum TagType
 	{

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Mntone.MiiverseClient.Entities.Feeling;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Entities.Post
 {
 	[DataContract]
 	public sealed class Post

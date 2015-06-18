@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Entities.Token
 {
 	public sealed class NintendoNetworkSessionToken
 	{

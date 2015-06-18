@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Mntone.MiiverseClient.Entities.Post;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Managers
 {
 	public sealed class ActivityResponse
 	{

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Entities.Post
 {
 	public sealed class PostCommunity
 	{

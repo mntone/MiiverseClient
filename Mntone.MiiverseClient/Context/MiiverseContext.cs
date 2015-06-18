@@ -1,12 +1,17 @@
-﻿using HtmlAgilityPack;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
+using HtmlAgilityPack;
+using Mntone.MiiverseClient.Entities.Feeling;
+using Mntone.MiiverseClient.Entities.Post;
+using Mntone.MiiverseClient.Managers;
+using Mntone.MiiverseClient.Tools.Constants;
+using Mntone.MiiverseClient.Tools.Extensions;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Context
 {
 	public sealed class MiiverseContext : IDisposable
 	{

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Entities.Feeling
 {
 	public static class FeelingTypeHelpers
 	{

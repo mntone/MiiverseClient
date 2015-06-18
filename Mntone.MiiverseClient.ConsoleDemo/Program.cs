@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mntone.MiiverseClient.Entities.Token;
+using Mntone.MiiverseClient.Managers;
 
 namespace Mntone.MiiverseClient.ConsoleDemo
 {
@@ -31,6 +33,9 @@ namespace Mntone.MiiverseClient.ConsoleDemo
 			}
 
 			ctx.SignOutAsync().GetAwaiter().GetResult();
+
+            Console.WriteLine("Press any key to exit");
+            Console.ReadKey();
 		}
 
 		private static string GetPassword()

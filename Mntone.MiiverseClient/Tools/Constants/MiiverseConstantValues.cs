@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Tools.Constants
 {
 	internal static class MiiverseConstantValues
 	{

@@ -1,4 +1,4 @@
-﻿namespace Mntone.MiiverseClient
+﻿namespace Mntone.MiiverseClient.Entities.Token
 {
 	public sealed class NintendoNetworkAuthenticationToken
 	{

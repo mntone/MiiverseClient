@@ -3,7 +3,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Tools.Extensions
 {
 	internal static class HttpClientExtensions
 	{

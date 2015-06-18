@@ -4,8 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Mntone.MiiverseClient.Context;
+using Mntone.MiiverseClient.Entities.Token;
+using Mntone.MiiverseClient.Tools.Constants;
+using Mntone.MiiverseClient.Tools.Extensions;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Managers
 {
 	public sealed class MiiverseOAuthClient : IDisposable
 	{

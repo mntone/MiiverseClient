@@ -34,23 +34,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ActivityResponse.cs" />
-    <Compile Include="PostCommunity.cs" />
-    <Compile Include="FeelingType.cs" />
-    <Compile Include="FeelingTypeHelpers.cs" />
-    <Compile Include="HtmlAgilityExtensions.cs" />
-    <Compile Include="HttpClientExtensions.cs" />
-    <Compile Include="MiiverseConstantValues.cs" />
-    <Compile Include="MiiverseContext.cs" />
-    <Compile Include="NintendoNetworkAuthenticationToken.cs" />
-    <Compile Include="NintendoNetworkSessionToken.cs" />
-    <Compile Include="MiiverseOAuthClient.cs" />
-    <Compile Include="PostTag.cs" />
-    <Compile Include="PostUser.cs" />
+    <Compile Include="Managers\ActivityResponse.cs" />
+    <Compile Include="Entities\Post\PostCommunity.cs" />
+    <Compile Include="Entities\Feeling\FeelingType.cs" />
+    <Compile Include="Entities\Feeling\FeelingTypeHelpers.cs" />
+    <Compile Include="Tools\Extensions\HtmlAgilityExtensions.cs" />
+    <Compile Include="Tools\Extensions\HttpClientExtensions.cs" />
+    <Compile Include="Tools\Constants\MiiverseConstantValues.cs" />
+    <Compile Include="Context\MiiverseContext.cs" />
+    <Compile Include="Entities\Token\NintendoNetworkAuthenticationToken.cs" />
+    <Compile Include="Entities\Token\NintendoNetworkSessionToken.cs" />
+    <Compile Include="Managers\MiiverseOAuthClient.cs" />
+    <Compile Include="Entities\Post\PostTag.cs" />
+    <Compile Include="Entities\Post\PostUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Post.cs" />
-    <Compile Include="TagType.cs" />
-    <Compile Include="UriExtensions.cs" />
+    <Compile Include="Entities\Post\Post.cs" />
+    <Compile Include="Entities\Post\TagType.cs" />
+    <Compile Include="Tools\Extensions\UriExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, processorArchitecture=MSIL">
