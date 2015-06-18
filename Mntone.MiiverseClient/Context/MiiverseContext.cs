@@ -47,6 +47,23 @@ namespace Mntone.MiiverseClient.Context
 	            var post = ParsePost(postNode);
                 return new PostResponse(post);
             });
+        }
+
+	    public Task<UserFeedResponse> GetUserFeedAsync(string username)
+	    {
+            AccessCheck();
+
+            var req = new HttpRequestMessage(HttpMethod.Get, $"https://miiverse.nintendo.net/users/{username}/posts");
+            req.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            return Client.SendAsync(req).ToTaskOfStream().ContinueWith(stream =>
+            {
+                var doc = new HtmlDocument();
+                doc.Load(stream.Result);
+
+                var postsNode = doc.GetElementbyId("main-body").GetElementByClassName("post-list").ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
+                var posts = postsNode.Select(ParsePost).ToList();
+                return new UserFeedResponse(posts);
+            });
         } 
 
 		public Task<ActivityResponse> GetActivityAsync()

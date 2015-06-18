@@ -44,7 +44,14 @@ namespace Mntone.MiiverseClient.ConsoleDemo
                 Console.WriteLine("-----------");
             }
 
-			ctx.SignOutAsync().GetAwaiter().GetResult();
+            var userFeedResponse = ctx.GetUserFeedAsync("drasticactions").GetAwaiter().GetResult();
+            foreach (var post in userFeedResponse.Posts)
+            {
+                Console.WriteLine("{0}: {1}{2}", post.User.ScreenName, post.Text, post.ImageUri);
+                Console.WriteLine("-----------");
+            }
+
+            ctx.SignOutAsync().GetAwaiter().GetResult();
 
             Console.WriteLine("Press any key to exit");
             Console.ReadKey();
