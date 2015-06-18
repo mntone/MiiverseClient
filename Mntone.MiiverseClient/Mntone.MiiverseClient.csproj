@@ -34,10 +34,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Managers\ActivityResponse.cs" />
+    <Compile Include="Entities\Response\ActivityResponse.cs" />
     <Compile Include="Entities\Post\PostCommunity.cs" />
     <Compile Include="Entities\Feeling\FeelingType.cs" />
     <Compile Include="Entities\Feeling\FeelingTypeHelpers.cs" />
+    <Compile Include="Entities\Response\PostResponse.cs" />
     <Compile Include="Tools\Extensions\HtmlAgilityExtensions.cs" />
     <Compile Include="Tools\Extensions\HttpClientExtensions.cs" />
     <Compile Include="Tools\Constants\MiiverseConstantValues.cs" />

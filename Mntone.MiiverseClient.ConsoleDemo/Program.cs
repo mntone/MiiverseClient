@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Mntone.MiiverseClient.Entities.Post;
 using Mntone.MiiverseClient.Entities.Token;
 using Mntone.MiiverseClient.Managers;
 
@@ -31,6 +33,16 @@ namespace Mntone.MiiverseClient.ConsoleDemo
 				Console.WriteLine("{0}: {1}{2}", post.User.ScreenName, post.Text, post.ImageUri);
 				Console.WriteLine("-----------");
 			}
+
+		    if (activityResponse.Posts.Any())
+		    {
+		        var activity = activityResponse.Posts.First();
+		        var postResponse = ctx.GetPostAsync(activity.ID).GetAwaiter().GetResult();
+
+                Console.WriteLine("Get Post " + activity.ID);
+                Console.WriteLine("{0}: {1}{2}", postResponse.Post.User.ScreenName, postResponse.Post.Text, postResponse.Post.ImageUri);
+                Console.WriteLine("-----------");
+            }
 
 			ctx.SignOutAsync().GetAwaiter().GetResult();
 
