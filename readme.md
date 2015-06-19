@@ -6,7 +6,7 @@ Unofficial Miiverse client is getting post from Miiverse. Now developing….
 
 - [x] Get the list of post.
 - [x] Get post.
-- [ ] Get the list of community.
+- [x] Get the list of community.
 - [x] Get user information.
 - [ ] Change my profile and settings.
 
