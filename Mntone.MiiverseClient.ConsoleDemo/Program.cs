@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mntone.MiiverseClient.Entities.Post;
 using Mntone.MiiverseClient.Entities.Token;
 using Mntone.MiiverseClient.Managers;
 
@@ -25,9 +24,29 @@ namespace Mntone.MiiverseClient.ConsoleDemo
 			Console.Write("Password: ");
 			var password = GetPassword();
 			Console.WriteLine("-----------");
+            Console.WriteLine("-----------");
 
-			var ctx = oauthClient.Authorize(token, new NintendoNetworkAuthenticationToken(userName, password)).GetAwaiter().GetResult();
-			var activityResponse = ctx.GetActivityAsync().GetAwaiter().GetResult();
+            var ctx = oauthClient.Authorize(token, new NintendoNetworkAuthenticationToken(userName, password)).GetAwaiter().GetResult();
+            var userEntity = ctx.GetUserProfileAsync(userName).GetAwaiter().GetResult();
+            Console.WriteLine("Name: {0}", userEntity.User.Name);
+            Console.WriteLine("ScreenName: {0}", userEntity.User.ScreenName);
+            Console.WriteLine("IconUri: {0}", userEntity.User.IconUri);
+            Console.WriteLine("Country: {0}", userEntity.User.Country);
+            Console.WriteLine("Birthday: {0}", userEntity.User.Birthday);
+		    foreach (var gameSystem in userEntity.User.GameSystem)
+		    {
+                Console.WriteLine("GameSystem: {0}", gameSystem);
+            }
+            foreach (var gameGenre in userEntity.User.FavoriteGameGenre)
+            {
+                Console.WriteLine("GameGenre: {0}", gameGenre);
+            }
+            Console.WriteLine("GameSkill: {0}", userEntity.User.GameSkill);
+            Console.WriteLine("IsFollowing: {0}", userEntity.User.IsFollowing);
+            Console.WriteLine("IsCurrentUser: {0}", userEntity.User.IsCurrentUser);
+            Console.WriteLine("-----------");
+            var activityResponse = ctx.GetActivityAsync().GetAwaiter().GetResult();
+
 			foreach (var post in activityResponse.Posts)
 			{
 				Console.WriteLine("{0}: {1}{2}", post.User.ScreenName, post.Text, post.ImageUri);

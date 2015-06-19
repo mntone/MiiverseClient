@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -7,6 +8,7 @@ using HtmlAgilityPack;
 using Mntone.MiiverseClient.Entities.Feeling;
 using Mntone.MiiverseClient.Entities.Post;
 using Mntone.MiiverseClient.Entities.Response;
+using Mntone.MiiverseClient.Entities.User;
 using Mntone.MiiverseClient.Tools.Constants;
 using Mntone.MiiverseClient.Tools.Extensions;
 
@@ -32,6 +34,70 @@ namespace Mntone.MiiverseClient.Context
 			});
 			Client = new HttpClient(handler, true);
 		}
+
+	    public Task<UserProfileResponse> GetUserProfileAsync(string username)
+	    {
+            AccessCheck();
+
+            var req = new HttpRequestMessage(HttpMethod.Get, "https://miiverse.nintendo.net/users/" + username);
+            req.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            return Client.SendAsync(req).ToTaskOfStream().ContinueWith(stream =>
+            {
+                var doc = new HtmlDocument();
+                doc.Load(stream.Result);
+                var mainNode = doc.GetElementbyId("main-body");
+                var avatarUrlNode = mainNode.Descendants("img").FirstOrDefault();
+                var avatarUri = new Uri(avatarUrlNode?.GetAttributeValue("src", string.Empty));
+                var nickNameNode = mainNode.Descendants("div").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty) == "nick-name");
+                var nickName = nickNameNode?.InnerText;
+
+                var userNameNode = nickNameNode?.GetElementByClassName("id-name");
+                var userName = userNameNode?.InnerText;
+                var trueNickname = string.Empty;
+                if (nickName != null && userName != null)
+                {
+                    trueNickname = nickName?.Remove(nickName.IndexOf(userName, StringComparison.Ordinal), userName.Length);
+                }
+
+                var followButton =
+                    mainNode.Descendants("button")
+                        .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Equals("follow-button button symbol"));
+
+                // If "none" is contained in the button, then it's hidden, meaning the user is being followed. 
+                var isFollowing = followButton == null;
+
+                var userNode = mainNode.Descendants("div").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty) == "user-data");
+                var countryNode = userNode.Descendants("div").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Equals("note"));
+
+                var birthdayNode = userNode.Descendants("div").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("birthday"));
+
+                var gameSkillNode = userNode.Descendants("div").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("game-skill"));
+                var gameSkillSpan = gameSkillNode?.Descendants("span").LastOrDefault();
+                var gameSkill = gameSkillSpan?.GetAttributeValue("class", string.Empty);
+
+                var gameSystemsNode = userNode.Descendants("div").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Equals("game data-content"));
+                var gameSystems = gameSystemsNode?.Descendants("div").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Equals("note"));
+
+                var systems = new List<string>();
+                var htmlNodes2 = gameSystems?.Descendants("div");
+                if (htmlNodes2 != null)
+                {
+                    systems.AddRange(htmlNodes2.Select(div => div.GetAttributeValue("class", string.Empty)));
+                }
+
+                var favoriteGameGenreNode = userNode.Descendants("div").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("favorite-game-genre"));
+                var favoriteGameGenre = favoriteGameGenreNode?.Descendants("div").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Equals("note"));
+                var genres = new List<string>();
+                var htmlNodes = favoriteGameGenre?.Descendants("span");
+                if (htmlNodes != null)
+                {
+                    genres.AddRange(htmlNodes.Select(node => node.InnerText));
+                }
+
+                return new UserProfileResponse(new User(trueNickname, userName, avatarUri,
+                    countryNode?.InnerText, birthdayNode?.InnerText, gameSkill, systems, genres, isFollowing, UserName.ToLower().Equals(userName.ToLower())));
+            });
+        }
 
 	    public Task<PostResponse> GetPostAsync(string id)
 	    {

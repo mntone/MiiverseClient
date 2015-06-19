@@ -40,6 +40,12 @@
     <Compile Include="Entities\Feeling\FeelingTypeHelpers.cs" />
     <Compile Include="Entities\Response\PostResponse.cs" />
     <Compile Include="Entities\Response\UserFeedResponse.cs" />
+    <Compile Include="Entities\Response\UserProfileResponse.cs" />
+    <Compile Include="Entities\User\GameSkill.cs" />
+    <Compile Include="Entities\User\GameSkillHelper.cs" />
+    <Compile Include="Entities\User\GameSystem.cs" />
+    <Compile Include="Entities\User\GameSystemHelper.cs" />
+    <Compile Include="Entities\User\User.cs" />
     <Compile Include="Tools\Extensions\HtmlAgilityExtensions.cs" />
     <Compile Include="Tools\Extensions\HttpClientExtensions.cs" />
     <Compile Include="Tools\Constants\MiiverseConstantValues.cs" />
