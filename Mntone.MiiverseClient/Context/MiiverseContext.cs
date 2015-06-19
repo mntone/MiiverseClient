@@ -132,11 +132,15 @@ namespace Mntone.MiiverseClient.Context
             });
         } 
 
-		public Task<ActivityResponse> GetActivityAsync()
+		public Task<ActivityResponse> GetActivityAsync(bool friendsOnly = false)
 		{
 			AccessCheck();
-
-			var req = new HttpRequestMessage(HttpMethod.Get, "https://miiverse.nintendo.net/activity?fragment=activityfeed");
+            var url = "https://miiverse.nintendo.net/activity?fragment=activityfeed";
+		    if (friendsOnly)
+		    {
+		        url += "&filter=friend";
+		    }
+			var req = new HttpRequestMessage(HttpMethod.Get, url);
 			req.Headers.Add("X-Requested-With", "XMLHttpRequest");
 			return Client.SendAsync(req).ToTaskOfStream().ContinueWith(stream =>
 			{
