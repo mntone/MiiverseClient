@@ -43,6 +43,7 @@
     <Compile Include="Entities\Feeling\FeelingType.cs" />
     <Compile Include="Entities\Feeling\FeelingTypeHelpers.cs" />
     <Compile Include="Entities\Response\CommunityListResponse.cs" />
+    <Compile Include="Entities\Response\GameResponse.cs" />
     <Compile Include="Entities\Response\PostResponse.cs" />
     <Compile Include="Entities\Response\UserFeedResponse.cs" />
     <Compile Include="Entities\Response\UserProfileResponse.cs" />

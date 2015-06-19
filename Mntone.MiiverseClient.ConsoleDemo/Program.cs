@@ -29,7 +29,7 @@ namespace Mntone.MiiverseClient.ConsoleDemo
 
             var ctx = oauthClient.Authorize(token, new NintendoNetworkAuthenticationToken(userName, password)).GetAwaiter().GetResult();
 
-		    var gameList = ctx.GetCommunityGameList(GameSearchList.All, GamePlatformSearch.Wiiu, 0).GetAwaiter().GetResult();
+		    var gameList = ctx.GetCommunityGameListAsync(GameSearchList.All, GamePlatformSearch.Wiiu, 0).GetAwaiter().GetResult();
 		    foreach (var game in gameList.Games)
 		    {
                 Console.WriteLine("Title: {0}", game.Title);
@@ -41,6 +41,8 @@ namespace Mntone.MiiverseClient.ConsoleDemo
                 Console.WriteLine("");
                 Console.WriteLine("-----------");
             }
+
+            var indieGame = ctx.GetGameAsync(gameList.Games.First()).GetAwaiter().GetResult();
 
             var userEntity = ctx.GetUserProfileAsync(userName).GetAwaiter().GetResult();
             Console.WriteLine("Name: {0}", userEntity.User.Name);

@@ -37,7 +37,50 @@ namespace Mntone.MiiverseClient.Context
 			Client = new HttpClient(handler, true);
 		}
 
-	    public Task<CommunityListResponse> GetCommunityGameList(GameSearchList searchOption, GamePlatformSearch platformSearch, int offset)
+	    public Task<GameResponse> GetGameAsync(Game game, string nextPageUrl = "")
+	    {
+            AccessCheck();
+
+            var baseUrl = "https://miiverse.nintendo.net/";
+	        if (!string.IsNullOrEmpty(nextPageUrl))
+	        {
+	            baseUrl += nextPageUrl;
+	        }
+	        else
+	        {
+	            baseUrl += game.TitleUrl;
+	        }
+
+            var req = new HttpRequestMessage(HttpMethod.Get, baseUrl);
+            req.Headers.Add("X-Requested-With", "XMLHttpRequest");
+	        return Client.SendAsync(req).ToTaskOfStream().ContinueWith(stream =>
+	        {
+                var doc = new HtmlDocument();
+                doc.Load(stream.Result);
+
+	            var favoriteButton =
+	                doc.DocumentNode.Descendants("button")
+	                    .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("favorite-button"));
+
+	            var isFavorite = favoriteButton != null && !favoriteButton.GetAttributeValue("class", string.Empty).Contains("checked");
+
+	            var textArea =
+	                doc.DocumentNode.Descendants("textarea")
+	                    .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("textarea-text"));
+
+	            var canPost = textArea != null;
+
+                var postListNode = doc.DocumentNode.Descendants("div")
+                        .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("list post-list"));
+
+	            var nextPage = postListNode?.GetAttributeValue("data-next-page-url", string.Empty);
+                var postNodes = postListNode?.ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
+                var posts = postNodes.Select(ParsePost).ToList();
+                return new GameResponse(canPost, isFavorite, nextPage, posts);
+	        });
+	    }
+
+	    public Task<CommunityListResponse> GetCommunityGameListAsync(GameSearchList searchOption, GamePlatformSearch platformSearch, int offset)
 	    {
             AccessCheck();
 
