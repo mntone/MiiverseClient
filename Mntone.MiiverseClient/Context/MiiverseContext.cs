@@ -62,7 +62,7 @@ namespace Mntone.MiiverseClient.Context
 	                doc.DocumentNode.Descendants("button")
 	                    .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("favorite-button"));
 
-	            var isFavorite = favoriteButton != null && !favoriteButton.GetAttributeValue("class", string.Empty).Contains("checked");
+	            var isFavorite = favoriteButton != null && favoriteButton.GetAttributeValue("class", string.Empty).Contains("checked");
 
 	            var textArea =
 	                doc.DocumentNode.Descendants("textarea")
