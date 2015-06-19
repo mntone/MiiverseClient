@@ -60,28 +60,36 @@ namespace Mntone.MiiverseClient.Managers
 
 		public Task<MiiverseContext> Authorize(NintendoNetworkSessionToken sessionToken, NintendoNetworkAuthenticationToken authenticationToken)
 		{
-			return this.Client.PostAsync(AUTHORIZE_URI, new FormUrlEncodedContent(new Dictionary<string, string>()
-			{
-				["client_id"] = sessionToken.ClientID,
-				["response_type"] = sessionToken.ResponseType,
-				["redirect_uri"] = sessionToken.RedirectUri.ToString(),
-				["state"] = sessionToken.State,
-				["nintendo_authenticate"] = string.Empty,
-				["nintendo_authorize"] = string.Empty,
-				["scope"] = string.Empty,
-				["lang"] = "ja-JP",
-				["username"] = authenticationToken.UserName,
-				["password"] = authenticationToken.Password,
-			})).ContinueWith(r => this.Client.GetAsync(r.Result.Headers.Location)).Unwrap()
-			.ContinueWith(r =>
-			{
-				var cookie = this._clientHandler.CookieContainer.GetCookies(MiiverseConstantValues.MIIVERSE_DOMAIN_URI)
-					.Cast<Cookie>()
-					.Where(c => c.Name == "ms" && c.Path == "/" && c.Secure && c.HttpOnly)
-					.OrderByDescending(c => c.Expires.Ticks)
-					.First();
-				return new MiiverseContext(authenticationToken.UserName, sessionToken.ClientID, cookie.Value);
-			});
+            // TODO: Handle authentication errors (bad passwords, network down) better.
+		    try
+		    {
+                return this.Client.PostAsync(AUTHORIZE_URI, new FormUrlEncodedContent(new Dictionary<string, string>()
+                {
+                    ["client_id"] = sessionToken.ClientID,
+                    ["response_type"] = sessionToken.ResponseType,
+                    ["redirect_uri"] = sessionToken.RedirectUri.ToString(),
+                    ["state"] = sessionToken.State,
+                    ["nintendo_authenticate"] = string.Empty,
+                    ["nintendo_authorize"] = string.Empty,
+                    ["scope"] = string.Empty,
+                    ["lang"] = "ja-JP",
+                    ["username"] = authenticationToken.UserName,
+                    ["password"] = authenticationToken.Password,
+                })).ContinueWith(r => this.Client.GetAsync(r.Result.Headers.Location)).Unwrap()
+            .ContinueWith(r =>
+            {
+                var cookie = this._clientHandler.CookieContainer.GetCookies(MiiverseConstantValues.MIIVERSE_DOMAIN_URI)
+                    .Cast<Cookie>()
+                    .Where(c => c.Name == "ms" && c.Path == "/" && c.Secure && c.HttpOnly)
+                    .OrderByDescending(c => c.Expires.Ticks)
+                    .First();
+                return new MiiverseContext(authenticationToken.UserName, sessionToken.ClientID, cookie.Value);
+            });
+            }
+		    catch (Exception ex)
+		    {
+		        throw new Exception("Failed to Authenticate", ex);
+		    }
 		}
 
 		public void Dispose()
