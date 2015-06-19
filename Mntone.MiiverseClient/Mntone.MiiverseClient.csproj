@@ -34,10 +34,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entities\Community\Game.cs" />
+    <Compile Include="Entities\Community\GamePlatformHelper.cs" />
+    <Compile Include="Entities\Community\GameSearchList.cs" />
+    <Compile Include="Entities\Community\Platform.cs" />
     <Compile Include="Entities\Response\ActivityResponse.cs" />
     <Compile Include="Entities\Post\PostCommunity.cs" />
     <Compile Include="Entities\Feeling\FeelingType.cs" />
     <Compile Include="Entities\Feeling\FeelingTypeHelpers.cs" />
+    <Compile Include="Entities\Response\CommunityListResponse.cs" />
     <Compile Include="Entities\Response\PostResponse.cs" />
     <Compile Include="Entities\Response\UserFeedResponse.cs" />
     <Compile Include="Entities\Response\UserProfileResponse.cs" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mntone.MiiverseClient.Entities.Community;
 using Mntone.MiiverseClient.Entities.Token;
 using Mntone.MiiverseClient.Managers;
 
@@ -23,10 +24,24 @@ namespace Mntone.MiiverseClient.ConsoleDemo
 			var userName = Console.ReadLine();
 			Console.Write("Password: ");
 			var password = GetPassword();
-			Console.WriteLine("-----------");
+			Console.WriteLine("");
             Console.WriteLine("-----------");
 
             var ctx = oauthClient.Authorize(token, new NintendoNetworkAuthenticationToken(userName, password)).GetAwaiter().GetResult();
+
+		    var gameList = ctx.GetCommunityGameList(GameSearchList.All, GamePlatformSearch.Wiiu, 0).GetAwaiter().GetResult();
+		    foreach (var game in gameList.Games)
+		    {
+                Console.WriteLine("Title: {0}", game.Title);
+                Console.WriteLine("TitleUrl: {0}", game.TitleUrl);
+                Console.WriteLine("Id: {0}", game.Id);
+                Console.WriteLine("Platform: {0}", game.Platform);
+                Console.WriteLine("IconUri: {0}", game.IconUri);
+                Console.WriteLine("Type: {0}", game.Type);
+                Console.WriteLine("");
+                Console.WriteLine("-----------");
+            }
+
             var userEntity = ctx.GetUserProfileAsync(userName).GetAwaiter().GetResult();
             Console.WriteLine("Name: {0}", userEntity.User.Name);
             Console.WriteLine("ScreenName: {0}", userEntity.User.ScreenName);

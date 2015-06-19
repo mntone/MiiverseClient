@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using Mntone.MiiverseClient.Entities.Community;
 using Mntone.MiiverseClient.Entities.Feeling;
 using Mntone.MiiverseClient.Entities.Post;
 using Mntone.MiiverseClient.Entities.Response;
@@ -35,7 +37,91 @@ namespace Mntone.MiiverseClient.Context
 			Client = new HttpClient(handler, true);
 		}
 
-	    public Task<UserProfileResponse> GetUserProfileAsync(string username)
+	    public Task<CommunityListResponse> GetCommunityGameList(GameSearchList searchOption, GamePlatformSearch platformSearch, int offset)
+	    {
+            AccessCheck();
+
+            var baseUrl = "https://miiverse.nintendo.net/communities/categories/";
+
+	        switch (platformSearch)
+	        {
+                case GamePlatformSearch.Nintendo3ds:
+                    baseUrl += "3ds";
+                    break;
+                case GamePlatformSearch.Wiiu:
+                    baseUrl += "wiiu";
+                    break;
+            }
+	        switch (searchOption)
+	        {
+	            case GameSearchList.All:
+	                baseUrl += "_all?offset=" + offset;
+	                break;
+                case GameSearchList.Game:
+                    baseUrl += "_game?offset=" + offset;
+                    break;
+                case GameSearchList.Other:
+                    baseUrl += "_other?offset=" + offset;
+                    break;
+                case GameSearchList.VirtualConsole:
+                    baseUrl += "_virtualconsole?offset=" + offset;
+                    break;
+            }
+
+            var req = new HttpRequestMessage(HttpMethod.Get, baseUrl);
+            req.Headers.Add("X-Requested-With", "XMLHttpRequest");
+	        return Client.SendAsync(req).ToTaskOfStream().ContinueWith(stream =>
+	        {
+                var doc = new HtmlDocument();
+                doc.Load(stream.Result);
+	            var gameListNode =
+	                doc.DocumentNode.Descendants("ul")
+	                    .FirstOrDefault(
+	                        node =>
+	                            node.GetAttributeValue("class", string.Empty) == "list community-list community-title-list");
+	            if (gameListNode == null)
+	            {
+                    return new CommunityListResponse(null);
+                }
+
+                var gamesList = gameListNode.Descendants("li");
+	            var output = new List<Game>();
+	            foreach (var game in gamesList)
+	            {
+	                var id = game.GetAttributeValue("id", string.Empty);
+                    var titleUrl = game.GetAttributeValue("data-href", string.Empty);
+
+	                var iconImg = game.Descendants("img").FirstOrDefault();
+	                var icon = iconImg?.GetAttributeValue("src", string.Empty);
+
+	                var body =
+	                    game.Descendants("div")
+	                        .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty) == "body");
+
+	                var titleNode =
+                        body.Descendants("a")
+	                        .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty) == "title");
+	                var title = titleNode?.InnerText;
+
+	                var imageNode = body.Descendants("img").FirstOrDefault();
+	                var image = imageNode?.GetAttributeValue("src", string.Empty);
+	                var imageFilename = string.Empty;
+	                if (!string.IsNullOrEmpty(image))
+	                {
+                        var uri = new Uri(image);
+                        imageFilename = System.IO.Path.GetFileName(uri.LocalPath).Split('?').FirstOrDefault();
+                    }
+
+	                var gameTextSpan = body.Descendants("span").LastOrDefault();
+	                var gameText = gameTextSpan.InnerText;
+                    output.Add(new Game(id, title, titleUrl, new Uri(icon), imageFilename, gameText));
+	            }
+                return new CommunityListResponse(output);
+	        });
+
+	    }
+
+        public Task<UserProfileResponse> GetUserProfileAsync(string username)
 	    {
             AccessCheck();
 
