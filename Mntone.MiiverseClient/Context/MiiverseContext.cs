@@ -70,13 +70,13 @@ namespace Mntone.MiiverseClient.Context
 
 	            var canPost = textArea != null;
 
-                var postListNode = doc.DocumentNode.Descendants("div")
-                        .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("list post-list"));
+                //   var postListNode = doc.DocumentNode.Descendants("div")
+                //           .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("list post-list"));
 
-	            var nextPage = postListNode?.GetAttributeValue("data-next-page-url", string.Empty);
-                var postNodes = postListNode?.ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
-                var posts = postNodes.Select(ParsePost).ToList();
-                return new GameResponse(canPost, isFavorite, nextPage, posts);
+                //var nextPage = postListNode?.GetAttributeValue("data-next-page-url", string.Empty);
+                //   var postNodes = postListNode?.ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
+                var posts = new List<Post>();
+                return new GameResponse(canPost, isFavorite, "", posts);
 	        });
 	    }
 
@@ -121,7 +121,7 @@ namespace Mntone.MiiverseClient.Context
 	                doc.DocumentNode.Descendants("ul")
 	                    .FirstOrDefault(
 	                        node =>
-	                            node.GetAttributeValue("class", string.Empty) == "list community-list community-title-list");
+	                            node.GetAttributeValue("class", string.Empty) == "list community-list");
 	            if (gameListNode == null)
 	            {
                     return new CommunityListResponse(null);
@@ -177,16 +177,11 @@ namespace Mntone.MiiverseClient.Context
                 var mainNode = doc.GetElementbyId("main-body");
                 var avatarUrlNode = mainNode.Descendants("img").FirstOrDefault();
                 var avatarUri = new Uri(avatarUrlNode?.GetAttributeValue("src", string.Empty));
-                var nickNameNode = mainNode.Descendants("div").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty) == "nick-name");
+                var nickNameNode = mainNode.Descendants("a").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty) == "nick-name");
                 var nickName = nickNameNode?.InnerText;
 
-                var userNameNode = nickNameNode?.GetElementByClassName("id-name");
+                var userNameNode = mainNode.Descendants("p").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty) == "id-name");
                 var userName = userNameNode?.InnerText;
-                var trueNickname = string.Empty;
-                if (nickName != null && userName != null)
-                {
-                    trueNickname = nickName?.Remove(nickName.IndexOf(userName, StringComparison.Ordinal), userName.Length);
-                }
 
                 var followButton =
                     mainNode.Descendants("button")
@@ -202,8 +197,8 @@ namespace Mntone.MiiverseClient.Context
 
                 var gameSkillNode = userNode.Descendants("div").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("game-skill"));
                 var gameSkillSpan = gameSkillNode?.Descendants("span").LastOrDefault();
-                var gameSkill = gameSkillSpan?.GetAttributeValue("class", string.Empty);
-
+                var gameSkill = gameSkillSpan?.GetAttributeValue("class", string.Empty).Replace("test-game-skill", "").Trim();
+                
                 var gameSystemsNode = userNode.Descendants("div").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Equals("game data-content"));
                 var gameSystems = gameSystemsNode?.Descendants("div").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Equals("note"));
 
@@ -223,7 +218,7 @@ namespace Mntone.MiiverseClient.Context
                     genres.AddRange(htmlNodes.Select(node => node.InnerText));
                 }
 
-                return new UserProfileResponse(new User(trueNickname, userName, avatarUri,
+                return new UserProfileResponse(new User(nickName, userName, avatarUri,
                     countryNode?.InnerText, birthdayNode?.InnerText, gameSkill, systems, genres, isFollowing, UserName.ToLower().Equals(userName.ToLower())));
             });
         }
@@ -255,8 +250,9 @@ namespace Mntone.MiiverseClient.Context
                 var doc = new HtmlDocument();
                 doc.Load(stream.Result);
 
-                var postsNode = doc.GetElementbyId("main-body").GetElementByClassName("post-list").ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
-                var posts = postsNode.Select(ParsePost).ToList();
+                var mainBody = doc.GetElementbyId("main-body");
+                var postList = mainBody.Descendants("div").Where(node => node.GetAttributeValue("id", string.Empty).Contains("post-"));
+                var posts = postList.Select(ParsePost).ToList();
                 return new UserFeedResponse(posts);
             });
         } 
@@ -310,17 +306,18 @@ namespace Mntone.MiiverseClient.Context
 
         private Post ParsePost(HtmlNode postNode)
         {
-            var timestampAnchorNode = postNode.GetElementByClassName("timestamp-container").FirstChild;
+            //var timestampAnchorNode = postNode.GetElementByClassName("timestamp-container").FirstChild;
             HtmlNode postContentNode;
             try
             {
                 // Post List Page
-                postContentNode = postNode.GetElementByClassName("body").GetElementByClassName("post-content");
+                var bodyNode = postNode.Descendants("div").Where(n => n.GetAttributeValue("class", string.Empty).Contains("body")).FirstOrDefault();
+                postContentNode = bodyNode.GetElementByClassName("post-content");
             }
             catch (InvalidOperationException)
             {
                 // Individual Post Page
-                postContentNode = postNode.GetElementByClassName("body");
+                postContentNode = postNode.Descendants("div").Where(n => n.GetAttributeValue("class", string.Empty).Contains("body")).FirstOrDefault();
             }
             var postMetaNode = postContentNode.GetElementByClassName("post-meta");
 
@@ -371,14 +368,28 @@ namespace Mntone.MiiverseClient.Context
             postContentNode.ChildNodes.MatchClassName("screenshot-container",
                 some: n => screenShotUri = n.GetImageSource());
 
-            var userNameAnchorNode = postNode.GetElementByClassName("user-name").FirstChild;
+            var userNameAnchorNode = postNode.Descendants("p").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty) == "user-name").FirstChild;
             var userName = userNameAnchorNode.GetAttributeValue("href", string.Empty).Substring(7);
             var screenName = userNameAnchorNode.InnerText;
-            var userIconUri = postNode.GetElementByClassName("icon-container").GetImageSource();
-            var feeling = FeelingTypeHelpers.DetectFeelingTypeFromIconUri(userIconUri);
-            var normalUserIconUri = FeelingTypeHelpers.GetNormalFaceIconUri(userIconUri, feeling);
+            HtmlNode userIconContainer;
+            try
+            {
+                userIconContainer = postNode.GetElementByClassName("icon-container");
+            }
+            catch (Exception)
+            {
+                userIconContainer = postNode.Descendants("a").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty) == "icon-container");
+            }
+            var userIconUri = userIconContainer.Descendants("img").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty) == "icon").GetAttributeValue("src", "");
+            var feeling = FeelingTypeHelpers.DetectFeelingTypeFromIconUri(new Uri(userIconUri));
+            var normalUserIconUri = FeelingTypeHelpers.GetNormalFaceIconUri(new Uri(userIconUri), feeling);
 
-            var communityAnchorNode = postNode.GetElementByClassName("community-container").FirstChild;
+            HtmlNode communityAnchorNode = communityAnchorNode = postNode.Descendants("a").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty) == "test-community-link");
+            if (communityAnchorNode == null)
+            {
+                var testNode = postNode.Descendants("h1").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty) == "community-container-heading");
+                communityAnchorNode = testNode.Descendants("a").FirstOrDefault();
+            }
             var communityIconImageNode = communityAnchorNode.GetElementByTagName("img");
             var comInfo = communityAnchorNode.GetAttributeValue("href", string.Empty).Substring(1).Split('/');
             var titleID = Convert.ToUInt64(comInfo[1]);
