@@ -29,7 +29,7 @@ namespace Mntone.MiiverseClient.ConsoleDemo
 
             var ctx = oauthClient.Authorize(token, new NintendoNetworkAuthenticationToken(userName, password)).GetAwaiter().GetResult();
 
-		    var gameList = ctx.GetCommunityGameListAsync(GameSearchList.All, GamePlatformSearch.Wiiu, 0).GetAwaiter().GetResult();
+		    var gameList = ctx.GetCommunityGameListAsync(GameSearchList.All, GamePlatformSearch.Wiiu, 300).GetAwaiter().GetResult();
 		    foreach (var game in gameList.Games)
 		    {
                 Console.WriteLine("Title: {0}", game.Title);
@@ -42,7 +42,14 @@ namespace Mntone.MiiverseClient.ConsoleDemo
                 Console.WriteLine("-----------");
             }
 
-            var indieGame = ctx.GetGameAsync(gameList.Games.First()).GetAwaiter().GetResult();
+            var gameTest = gameList.Games.First(node => node.Id == "community-14866558073673172583");
+
+            var indieGameDiscuss = ctx.GetDiscussAsync(gameTest).GetAwaiter().GetResult();
+            var indieGameInGame = ctx.GetInGameAsync(gameTest).GetAwaiter().GetResult();
+            var indieGameOld = ctx.GetOldGameAsync(gameTest).GetAwaiter().GetResult();
+            var indieGameDrawing = ctx.GetDrawingAsync(gameTest).GetAwaiter().GetResult();
+            var indieGame = ctx.GetGameAsync(gameTest).GetAwaiter().GetResult();
+            var indieGameDiary = ctx.GetDiaryAsync(gameTest).GetAwaiter().GetResult();
 
             var userEntity = ctx.GetUserProfileAsync(userName).GetAwaiter().GetResult();
             Console.WriteLine("Name: {0}", userEntity.User.Name);

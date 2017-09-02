@@ -45,7 +45,203 @@ namespace Mntone.MiiverseClient.Context
 
         }
 
-	    public Task<GameResponse> GetGameAsync(Game game, string nextPageUrl = "")
+        public Task<DrawingResponse> GetDrawingAsync(Game game, double lastPostTime = 0)
+        {
+            AccessCheck();
+
+            var baseUrl = "https://miiverse.nintendo.net/";
+            if (lastPostTime != 0)
+            {
+                // I know it's JSON encoded and it would be better to just decode/encode it.
+                // But the service it going away so screw it.
+                baseUrl += game.TitleUrl + $"/artwork?page_param=%7B%22upinfo%22%3A%221504369346.03892%2C1504377954%2C1504377954.31637%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
+            }
+            else
+            {
+                baseUrl += game.TitleUrl + "/artwork";
+            }
+
+            var req = new HttpRequestMessage(HttpMethod.Get, baseUrl);
+            req.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            return Client.SendAsync(req).ToTaskOfStream().ContinueWith(stream =>
+            {
+                var doc = new HtmlDocument();
+                doc.Load(stream.Result);
+
+                var postListNode = doc.DocumentNode.Descendants("div")
+                        .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("list post-list"));
+
+                var postNodes = postListNode?.ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
+                var posts = postNodes.Select(ParsePost).ToList();
+                double postTime = 0;
+                if (posts.Any())
+                {
+                    var epoch = posts.Last().PostedDate - new DateTime(1970, 1, 1);
+                    int secondsSinceEpoch = (int)epoch.TotalSeconds;
+                    postTime = -(secondsSinceEpoch);
+                }
+                return new DrawingResponse(postTime, posts);
+            });
+        }
+
+        public Task<DiaryResponse> GetDiaryAsync(Game game, double lastPostTime = 0)
+        {
+            AccessCheck();
+
+            var baseUrl = "https://miiverse.nintendo.net/";
+            if (lastPostTime != 0)
+            {
+                // I know it's JSON encoded and it would be better to just decode/encode it.
+                // But the service it going away so screw it.
+                baseUrl += game.TitleUrl + $"/diary?page_param=%7B%22upinfo%22%3A%221504369346.03892%2C1504377954%2C1504377954.31637%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
+            }
+            else
+            {
+                baseUrl += game.TitleUrl + "/diary";
+            }
+
+            var req = new HttpRequestMessage(HttpMethod.Get, baseUrl);
+            req.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            return Client.SendAsync(req).ToTaskOfStream().ContinueWith(stream =>
+            {
+                var doc = new HtmlDocument();
+                doc.Load(stream.Result);
+
+                var postListNode = doc.DocumentNode.Descendants("div")
+                        .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("list post-list"));
+
+                var postNodes = postListNode?.ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
+                var posts = postNodes.Select(ParsePost).ToList();
+                double postTime = 0;
+                if(posts.Any())
+                {
+                    var epoch = posts.Last().PostedDate - new DateTime(1970, 1, 1);
+                    int secondsSinceEpoch = (int)epoch.TotalSeconds;
+                    postTime = -(secondsSinceEpoch);
+                }
+                return new DiaryResponse(postTime, posts);
+            });
+        }
+
+        public Task<DiscussionResponse> GetDiscussAsync(Game game, double lastPostTime = 0)
+        {
+            AccessCheck();
+
+            var baseUrl = "https://miiverse.nintendo.net/";
+            if (lastPostTime != 0)
+            {
+                // I know it's JSON encoded and it would be better to just decode/encode it.
+                // But the service it going away so screw it.
+                baseUrl += game.TitleUrl + $"/topic?page_param=%7B%22upinfo%22%3A%221504369346.03892%2C1504377954%2C1504377954.31637%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
+            }
+            else
+            {
+                baseUrl += game.TitleUrl + "/topic";
+            }
+
+            var req = new HttpRequestMessage(HttpMethod.Get, baseUrl);
+            req.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            return Client.SendAsync(req).ToTaskOfStream().ContinueWith(stream =>
+            {
+                var doc = new HtmlDocument();
+                doc.Load(stream.Result);
+
+                var postListNode = doc.DocumentNode.Descendants("div")
+                        .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("list multi-timeline-post-list"));
+
+                var postNodes = postListNode?.ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
+                var posts = postNodes.Select(ParsePost).ToList();
+                double postTime = 0;
+                if (posts.Any())
+                {
+                    var epoch = posts.Last().PostedDate - new DateTime(1970, 1, 1);
+                    int secondsSinceEpoch = (int)epoch.TotalSeconds;
+                    postTime = -(secondsSinceEpoch);
+                }
+                return new DiscussionResponse(postTime, posts);
+            });
+        }
+
+        public Task<InGameResponse> GetInGameAsync(Game game, double lastPostTime = 0)
+        {
+            AccessCheck();
+
+            var baseUrl = "https://miiverse.nintendo.net/";
+            if (lastPostTime != 0)
+            {
+                // I know it's JSON encoded and it would be better to just decode/encode it.
+                // But the service it going away so screw it.
+                baseUrl += game.TitleUrl + $"/in_game?page_param=%7B%22upinfo%22%3A%221504369346.03892%2C1504377954%2C1504377954.31637%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
+            }
+            else
+            {
+                baseUrl += game.TitleUrl + "/in_game";
+            }
+
+            var req = new HttpRequestMessage(HttpMethod.Get, baseUrl);
+            req.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            return Client.SendAsync(req).ToTaskOfStream().ContinueWith(stream =>
+            {
+                var doc = new HtmlDocument();
+                doc.Load(stream.Result);
+
+                var postListNode = doc.DocumentNode.Descendants("div")
+                        .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("list post-list"));
+
+                var postNodes = postListNode?.ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
+                var posts = postNodes.Select(ParsePost).ToList();
+                double postTime = 0;
+                if (posts.Any())
+                {
+                    var epoch = posts.Last().PostedDate - new DateTime(1970, 1, 1);
+                    int secondsSinceEpoch = (int)epoch.TotalSeconds;
+                    postTime = -(secondsSinceEpoch);
+                }
+                return new InGameResponse(postTime, posts);
+            });
+        }
+
+        public Task<OldGameResponse> GetOldGameAsync(Game game, double lastPostTime = 0)
+        {
+            AccessCheck();
+
+            var baseUrl = "https://miiverse.nintendo.net/";
+            if (lastPostTime != 0)
+            {
+                // I know it's JSON encoded and it would be better to just decode/encode it.
+                // But the service it going away so screw it.
+                baseUrl += game.TitleUrl + $"/old?page_param=%7B%22upinfo%22%3A%221504369346.03892%2C1504377954%2C1504377954.31637%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
+            }
+            else
+            {
+                baseUrl += game.TitleUrl + "/old";
+            }
+
+            var req = new HttpRequestMessage(HttpMethod.Get, baseUrl);
+            req.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            return Client.SendAsync(req).ToTaskOfStream().ContinueWith(stream =>
+            {
+                var doc = new HtmlDocument();
+                doc.Load(stream.Result);
+
+                var postListNode = doc.DocumentNode.Descendants("div")
+                        .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("list post-list"));
+
+                var postNodes = postListNode?.ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
+                var posts = postNodes.Select(ParsePost).ToList();
+                double postTime = 0;
+                if (posts.Any())
+                {
+                    var epoch = posts.Last().PostedDate - new DateTime(1970, 1, 1);
+                    int secondsSinceEpoch = (int)epoch.TotalSeconds;
+                    postTime = -(secondsSinceEpoch);
+                }
+                return new OldGameResponse(postTime, posts);
+            });
+        }
+
+
+        public Task<GameResponse> GetGameAsync(Game game, string nextPageUrl = "")
 	    {
             AccessCheck();
 
@@ -78,13 +274,13 @@ namespace Mntone.MiiverseClient.Context
 
 	            var canPost = textArea != null;
 
-                //   var postListNode = doc.DocumentNode.Descendants("div")
-                //           .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("list post-list"));
+                var postListNode = doc.DocumentNode.Descendants("div")
+                           .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("before-renewal"));
 
                 //var nextPage = postListNode?.GetAttributeValue("data-next-page-url", string.Empty);
                 //   var postNodes = postListNode?.ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
                 var posts = new List<Post>();
-                return new GameResponse(canPost, isFavorite, "", posts);
+                return new GameResponse(canPost, isFavorite, "", postListNode != null, posts);
 	        });
 	    }
 
@@ -314,7 +510,19 @@ namespace Mntone.MiiverseClient.Context
 
         private Post ParsePost(HtmlNode postNode)
         {
-            //var timestampAnchorNode = postNode.GetElementByClassName("timestamp-container").FirstChild;
+            DateTime dateTime;
+            try
+            {
+                var timestampAnchorNode = postNode.Descendants("p").Where(n => n.GetAttributeValue("class", string.Empty).Contains("timestamp")).FirstOrDefault();
+                if (timestampAnchorNode == null)
+                    timestampAnchorNode = postNode.Descendants("a").Where(n => n.GetAttributeValue("class", string.Empty).Contains("timestamp")).FirstOrDefault();
+                dateTime = this.ConvertRelativeTime(timestampAnchorNode.InnerText.ToLower().Replace("&middot;", "").Replace("Spoilers", "").Trim());
+            }
+            catch (Exception)
+            {
+                // Set to min if we fail.
+                dateTime = DateTime.MinValue;
+            }
             HtmlNode postContentNode;
             try
             {
@@ -327,6 +535,11 @@ namespace Mntone.MiiverseClient.Context
                 // Individual Post Page
                 postContentNode = postNode.Descendants("div").Where(n => n.GetAttributeValue("class", string.Empty).Contains("body")).FirstOrDefault();
             }
+
+
+            var postTopicCategory = postNode.Descendants("a").Where(n => n.GetAttributeValue("class", string.Empty).Contains("post-topic-category")).FirstOrDefault();
+            string topic = postTopicCategory != null ? postTopicCategory.InnerText : "";
+
             var postMetaNode = postContentNode.GetElementByClassName("post-meta");
 
             var id = postNode.Id.Substring(5);
@@ -396,19 +609,44 @@ namespace Mntone.MiiverseClient.Context
             if (communityAnchorNode == null)
             {
                 var testNode = postNode.Descendants("h1").FirstOrDefault(node => node.GetAttributeValue("class", string.Empty) == "community-container-heading");
-                communityAnchorNode = testNode.Descendants("a").FirstOrDefault();
+                if (testNode != null)
+                {
+                    communityAnchorNode = testNode.Descendants("a").FirstOrDefault();
+                }
             }
-            var communityIconImageNode = communityAnchorNode.GetElementByTagName("img");
-            var comInfo = communityAnchorNode.GetAttributeValue("href", string.Empty).Substring(1).Split('/');
-            var titleID = Convert.ToUInt64(comInfo[1]);
-            var communityID = Convert.ToUInt64(comInfo[2]);
-            var communityIconUri = communityAnchorNode.GetImageSource();
-            var communityName = communityAnchorNode.InnerText;
+
+            ulong titleID = 0;
+            ulong communityID = 0;
+            Uri communityIconUri = new Uri("https://miiverse.nintendo.com");
+            string communityName = "";
+
+            if (communityAnchorNode != null)
+            {
+                var communityIconImageNode = communityAnchorNode.GetElementByTagName("img");
+                var comInfo = communityAnchorNode.GetAttributeValue("href", string.Empty).Substring(1).Split('/');
+                titleID = Convert.ToUInt64(comInfo[1]);
+                communityID = Convert.ToUInt64(comInfo[2]);
+                communityIconUri = communityAnchorNode.GetImageSource();
+                communityName = communityAnchorNode.InnerText;
+            }
+
+            
+
+            var acceptNode = postNode.Descendants("div").Where(n => n.GetAttributeValue("class", string.Empty).Contains("test-topic-answer-accepting-status")).FirstOrDefault();
+            bool accept = false;
+            if (acceptNode != null)
+            {
+                var status = Convert.ToInt32(acceptNode.GetAttributeValue("data-test-accepting-status", string.Empty));
+                accept = status == 1;
+            }
 
             if (isImagePost)
             {
                 return new Post(
                     id,
+                    accept,
+                    topic,
+                    dateTime,
                     new PostTag(tagType, tagID, tag),
                     imageUri,
                     replyCount,
@@ -423,6 +661,9 @@ namespace Mntone.MiiverseClient.Context
 
             return new Post(
                 id,
+                accept,
+                topic,
+                dateTime,
                 new PostTag(tagType, tagID, tag),
                 text,
                 replyCount,
@@ -435,5 +676,37 @@ namespace Mntone.MiiverseClient.Context
                 new PostCommunity(titleID, communityID, communityName, communityIconUri));
         }
 
+        private DateTime ConvertRelativeTime(string input)
+        {
+            DateTime result = DateTime.MinValue;
+            int minutesMultiplier = 0;
+
+            if (input.Contains("minute"))
+                minutesMultiplier = 1;
+            else
+                if (input.Contains("hour"))
+                minutesMultiplier = 60;
+            else
+                    if (input.Contains("day"))
+                minutesMultiplier = 1440;
+            else
+            {
+                try
+                {
+                    result = DateTime.Parse(input);
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Couldn't parse time format");
+                }
+            }
+
+            string numberStr = input.Split(' ')[0];
+            int number;
+            if (int.TryParse(numberStr, out number))
+                result = DateTime.Now.AddMinutes(-number * minutesMultiplier);
+            // We assume Now instead of UTC, because the site is configured for your local.
+            return result;
+        }
     }
 }

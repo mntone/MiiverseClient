@@ -8,12 +8,13 @@ namespace Mntone.MiiverseClient.Entities.Response
 {
     public sealed class GameResponse
     {
-        internal GameResponse(bool canPost, bool isFavorite, string nextPageUrl, IReadOnlyList<Post.Post> posts)
+        internal GameResponse(bool canPost, bool isFavorite, string nextPageUrl, bool before, IReadOnlyList<Post.Post> posts)
         {
             NextPageUrl = nextPageUrl;
             CanPost = canPost;
             Posts = posts;
             IsFavorite = isFavorite;
+            BeforeRenewal = before;
         }
 
         public string NextPageUrl { get; }
@@ -21,6 +22,21 @@ namespace Mntone.MiiverseClient.Entities.Response
         public bool CanPost { get; }
 
         public bool IsFavorite { get; }
+
+        public bool BeforeRenewal { get; }
+
+        public IReadOnlyList<Post.Post> Posts { get; }
+    }
+
+    public sealed class OldGameResponse
+    {
+        internal OldGameResponse(double nextPageUrl, IReadOnlyList<Post.Post> posts)
+        {
+            NextPageTimestamp = nextPageUrl;
+            Posts = posts;
+        }
+
+        public double NextPageTimestamp { get; }
 
         public IReadOnlyList<Post.Post> Posts { get; }
     }
