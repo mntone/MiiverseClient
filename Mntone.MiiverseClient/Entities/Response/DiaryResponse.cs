@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Mntone.MiiverseClient.Entities.Response
 {
-    public sealed class DiaryResponse
+    public  class DiaryResponse
     {
-        internal DiaryResponse(double nextPageUrl, IReadOnlyList<Post.Post> posts)
+        public DiaryResponse(double nextPageUrl, IReadOnlyList<Post.Post> posts)
         {
             NextPageTimestamp = nextPageUrl;
             Posts = posts;

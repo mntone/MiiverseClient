@@ -1,9 +1,9 @@
 ﻿
 namespace Mntone.MiiverseClient.Entities.Response
 {
-    public sealed class PostResponse
+    public  class PostResponse
     {
-        internal PostResponse(Post.Post post)
+        public PostResponse(Post.Post post)
         {
             this.Post = post;
         }

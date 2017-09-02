@@ -2,7 +2,7 @@
 
 namespace Mntone.MiiverseClient.Tools.Constants
 {
-	internal static class MiiverseConstantValues
+	public static class MiiverseConstantValues
 	{
 		public const string MIIVERSE_DOMAIN = "miiverse.nintendo.net";
 		public const string MIIVERSE_DOMAIN_URI_STRING = "https://miiverse.nintendo.net/";

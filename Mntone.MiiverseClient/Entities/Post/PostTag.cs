@@ -3,7 +3,7 @@
 namespace Mntone.MiiverseClient.Entities.Post
 {
 	[DataContract]
-	public sealed class PostTag
+	public  class PostTag
 	{
 		public PostTag(TagType tagType, string tagID, string tag)
 		{

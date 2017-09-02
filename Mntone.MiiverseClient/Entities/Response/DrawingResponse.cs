@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Mntone.MiiverseClient.Entities.Response
 {
-    public sealed class DrawingResponse
+    public  class DrawingResponse
     {
-        internal DrawingResponse(double nextPageUrl, IReadOnlyList<Post.Post> posts)
+        public DrawingResponse(double nextPageUrl, IReadOnlyList<Post.Post> posts)
         {
             NextPageTimestamp = nextPageUrl;
             Posts = posts;

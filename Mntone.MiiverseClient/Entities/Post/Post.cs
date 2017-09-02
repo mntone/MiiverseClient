@@ -5,52 +5,52 @@ using Mntone.MiiverseClient.Entities.Feeling;
 namespace Mntone.MiiverseClient.Entities.Post
 {
 	[DataContract]
-	public sealed class Post
+	public  class Post
 	{
-		internal Post(string id, bool accept, string discussionType, DateTime time, string text, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, PostUser user, FeelingType feeling, PostCommunity community)
+		public Post(string id, bool accept, string discussionType, DateTime time, string text, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, PostUser user, FeelingType feeling, PostCommunity community)
 			: this(id, accept, discussionType, time, text, replyCount, empathyCount, isPlayed, isSpoiler, null, user, feeling, community)
 		{ }
 
-		internal Post(string id, bool accept, string discussionType, DateTime time, string text, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, FeelingType feeling, PostCommunity community)
+		public Post(string id, bool accept, string discussionType, DateTime time, string text, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, FeelingType feeling, PostCommunity community)
 			: this(id, accept, discussionType, time, null, text, replyCount, empathyCount, isPlayed, isSpoiler, screenShotUri, user, feeling, community)
 		{
 			this.Text = text;
 			this.ImageUri = null;
 		}
 
-		internal Post(string id, bool accept, string discussionType, DateTime time, PostTag tag, string text, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, PostUser user, FeelingType feeling, PostCommunity community)
+		public Post(string id, bool accept, string discussionType, DateTime time, PostTag tag, string text, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, PostUser user, FeelingType feeling, PostCommunity community)
 			: this(id, accept, discussionType, time, tag, replyCount, empathyCount, isPlayed, isSpoiler, null, user, feeling, community)
 		{
 			this.Text = text;
 			this.ImageUri = null;
 		}
 
-		internal Post(string id, bool accept, string discussionType, DateTime time, PostTag tag, string text, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, FeelingType feeling, PostCommunity community)
+		public Post(string id, bool accept, string discussionType, DateTime time, PostTag tag, string text, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, FeelingType feeling, PostCommunity community)
 			: this(id, accept, discussionType, time, tag, replyCount, empathyCount, isPlayed, isSpoiler, screenShotUri, user, feeling, community)
 		{
 			this.Text = text;
 			this.ImageUri = null;
 		}
 
-		internal Post(string id, bool accept, string discussionType, DateTime time, Uri imageUri, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, PostUser user, FeelingType feeling, PostCommunity community)
+		public Post(string id, bool accept, string discussionType, DateTime time, Uri imageUri, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, PostUser user, FeelingType feeling, PostCommunity community)
 			: this(id, accept, discussionType, time, imageUri, replyCount, empathyCount, isPlayed, isSpoiler, null, user, feeling, community)
 		{ }
 
-		internal Post(string id, bool accept, string discussionType, DateTime time, Uri imageUri, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, FeelingType feeling, PostCommunity community)
+		public Post(string id, bool accept, string discussionType, DateTime time, Uri imageUri, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, FeelingType feeling, PostCommunity community)
 			: this(id, accept, discussionType, time, null, imageUri, replyCount, empathyCount, isPlayed, isSpoiler, screenShotUri, user, feeling, community)
 		{
 			this.Text = string.Empty;
 			this.ImageUri = imageUri;
 		}
 
-		internal Post(string id, bool accept, string discussionType, DateTime time, PostTag tag, Uri imageUri, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, PostUser user, FeelingType feeling, PostCommunity community)
+		public Post(string id, bool accept, string discussionType, DateTime time, PostTag tag, Uri imageUri, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, PostUser user, FeelingType feeling, PostCommunity community)
 			: this(id, accept, discussionType, time, tag, replyCount, empathyCount, isPlayed, isSpoiler, null, user, feeling, community)
 		{
 			this.Text = null;
 			this.ImageUri = imageUri;
 		}
 
-		internal Post(string id, bool accept, string discussionType, DateTime time, PostTag tag, Uri imageUri, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, FeelingType feeling, PostCommunity community)
+		public Post(string id, bool accept, string discussionType, DateTime time, PostTag tag, Uri imageUri, uint replyCount, uint empathyCount, bool isPlayed, bool isSpoiler, Uri screenShotUri, PostUser user, FeelingType feeling, PostCommunity community)
 			: this(id, accept, discussionType, time, tag, replyCount, empathyCount, isPlayed, isSpoiler, screenShotUri, user, feeling, community)
 		{
 			this.Text = null;

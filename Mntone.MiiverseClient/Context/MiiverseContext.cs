@@ -16,7 +16,7 @@ using Mntone.MiiverseClient.Tools.Extensions;
 
 namespace Mntone.MiiverseClient.Context
 {
-	public sealed class MiiverseContext : IDisposable
+	public  class MiiverseContext : IDisposable
 	{
 		private bool _isEnabled = true;
 

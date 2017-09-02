@@ -3,9 +3,9 @@ using System.Runtime.Serialization;
 
 namespace Mntone.MiiverseClient.Entities.Post
 {
-	public sealed class PostCommunity
+	public  class PostCommunity
 	{
-		internal PostCommunity(ulong titleID, ulong id, string name, Uri iconUri)
+		public PostCommunity(ulong titleID, ulong id, string name, Uri iconUri)
 		{
 			this.TitleID = titleID;
 			this.ID = id;

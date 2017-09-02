@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Mntone.MiiverseClient.Entities.User
 {
     [DataContract]
-    public sealed class User
+    public  class User
     {
-        internal User(string name, 
+        public User(string name, 
             string screenName, 
             Uri iconUri,
             string country,

@@ -7,9 +7,9 @@ using Mntone.MiiverseClient.Entities.Community;
 
 namespace Mntone.MiiverseClient.Entities.Response
 {
-    public sealed class CommunityListResponse
+    public  class CommunityListResponse
     {
-        internal CommunityListResponse(List<Game> game)
+        public CommunityListResponse(List<Game> game)
         {
             this.Games = game;
         }

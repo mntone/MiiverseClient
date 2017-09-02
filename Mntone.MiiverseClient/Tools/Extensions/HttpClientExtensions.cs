@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Mntone.MiiverseClient.Tools.Extensions
 {
-	internal static class HttpClientExtensions
+	public static class HttpClientExtensions
 	{
 		public static Task<HttpResponseMessage> HeadAsync(this HttpClient client, string uriString)
 			=> client.SendAsync(new HttpRequestMessage(HttpMethod.Head, uriString));

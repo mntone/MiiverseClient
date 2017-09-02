@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Mntone.MiiverseClient.Entities.Response
 {
-    public sealed class GameResponse
+    public  class GameResponse
     {
-        internal GameResponse(bool canPost, bool isFavorite, string nextPageUrl, bool before, IReadOnlyList<Post.Post> posts)
+        public GameResponse(bool canPost, bool isFavorite, string nextPageUrl, bool before, IReadOnlyList<Post.Post> posts)
         {
             NextPageUrl = nextPageUrl;
             CanPost = canPost;
@@ -28,9 +28,9 @@ namespace Mntone.MiiverseClient.Entities.Response
         public IReadOnlyList<Post.Post> Posts { get; }
     }
 
-    public sealed class OldGameResponse
+    public  class OldGameResponse
     {
-        internal OldGameResponse(double nextPageUrl, IReadOnlyList<Post.Post> posts)
+        public OldGameResponse(double nextPageUrl, IReadOnlyList<Post.Post> posts)
         {
             NextPageTimestamp = nextPageUrl;
             Posts = posts;

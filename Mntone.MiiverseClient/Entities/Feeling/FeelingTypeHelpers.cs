@@ -47,7 +47,7 @@ namespace Mntone.MiiverseClient.Entities.Feeling
 			return GetNormalFaceIconUri(faceIconUri);
 		}
 
-		internal static Uri GetNormalFaceIconUri(Uri faceIconUri, FeelingType feeling)
+		public static Uri GetNormalFaceIconUri(Uri faceIconUri, FeelingType feeling)
 		{
 			if (feeling == FeelingType.Normal)
 			{

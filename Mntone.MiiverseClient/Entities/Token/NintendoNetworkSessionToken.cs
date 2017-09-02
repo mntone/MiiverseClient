@@ -2,7 +2,7 @@
 
 namespace Mntone.MiiverseClient.Entities.Token
 {
-	public sealed class NintendoNetworkSessionToken
+	public  class NintendoNetworkSessionToken
 	{
 		public NintendoNetworkSessionToken(string clientID, string responseType, string redirectUri, string state)
 		{

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Mntone.MiiverseClient.Entities.Community
 {
     [DataContract]
-    public sealed class Game
+    public  class Game
     {
-        internal Game(string id, string title, string titleUrl, Uri iconUri, string platform, string type)
+        public Game(string id, string title, string titleUrl, Uri iconUri, string platform, string type)
         {
             Id = id;
             Title = title;

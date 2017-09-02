@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Mntone.MiiverseClient.Tools.Extensions
 {
-	internal static class UriExtensions
+	public static class UriExtensions
 	{
 		public static IEnumerable<KeyValuePair<string, string>> QueryToKeyValuePair(this Uri uri)
 			=> uri.Query.Substring(1)

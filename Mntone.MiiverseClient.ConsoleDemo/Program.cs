@@ -42,7 +42,9 @@ namespace Mntone.MiiverseClient.ConsoleDemo
                 Console.WriteLine("-----------");
             }
 
-            var gameTest = gameList.Games.First(node => node.Id == "community-14866558073673172583");
+            //var gameTest = gameList.Games.First(node => node.Id == "community-14866558073673172583");
+
+            var gameTest = new Game("community-14866558073673172583", "Splatoon", "/titles/14866558073673172576/14866558073673172583", new Uri("https://d3esbfg30x759i.cloudfront.net/cnj/zlCfzTYBRmcD4DW6Q5"), "platform-tag-wiiu.png", "Wii U Games");
 
             var indieGameDiscuss = ctx.GetDiscussAsync(gameTest).GetAwaiter().GetResult();
             var indieGameInGame = ctx.GetInGameAsync(gameTest).GetAwaiter().GetResult();

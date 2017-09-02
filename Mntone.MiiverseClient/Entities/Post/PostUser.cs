@@ -4,9 +4,9 @@ using System.Runtime.Serialization;
 namespace Mntone.MiiverseClient.Entities.Post
 {
 	[DataContract]
-	public sealed class PostUser
+	public  class PostUser
 	{
-		internal PostUser(string name, string screenName, Uri iconUri)
+		public PostUser(string name, string screenName, Uri iconUri)
 		{
 			this.Name = name;
 			this.ScreenName = screenName;

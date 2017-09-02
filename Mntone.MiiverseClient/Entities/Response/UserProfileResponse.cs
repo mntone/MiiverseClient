@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Mntone.MiiverseClient.Entities.Response
 {
-    public sealed class UserProfileResponse
+    public  class UserProfileResponse
     {
-        internal UserProfileResponse(User.User user)
+        public UserProfileResponse(User.User user)
         {
             User = user;
         }

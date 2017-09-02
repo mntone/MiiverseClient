@@ -2,9 +2,9 @@
 
 namespace Mntone.MiiverseClient.Entities.Response
 {
-    public sealed class ActivityResponse
+    public  class ActivityResponse
     {
-        internal ActivityResponse(List<Post.Post> posts)
+        public ActivityResponse(List<Post.Post> posts)
         {
             Posts = posts;
         }

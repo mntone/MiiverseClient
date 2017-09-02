@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Mntone.MiiverseClient.Entities.Response
 {
-    public sealed class UserFeedResponse
+    public  class UserFeedResponse
     {
-        internal UserFeedResponse(IReadOnlyList<Post.Post> posts)
+        public UserFeedResponse(IReadOnlyList<Post.Post> posts)
         {
             Posts = posts;
         }

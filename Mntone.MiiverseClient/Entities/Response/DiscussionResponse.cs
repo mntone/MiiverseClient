@@ -8,7 +8,7 @@ namespace Mntone.MiiverseClient.Entities.Response
 {
     public class DiscussionResponse
     {
-        internal DiscussionResponse(double nextPageUrl, IReadOnlyList<Post.Post> posts)
+        public DiscussionResponse(double nextPageUrl, IReadOnlyList<Post.Post> posts)
         {
             NextPageTimestamp = nextPageUrl;
             Posts = posts;

@@ -11,7 +11,7 @@ using Mntone.MiiverseClient.Tools.Extensions;
 
 namespace Mntone.MiiverseClient.Managers
 {
-	public sealed class MiiverseOAuthClient : IDisposable
+	public  class MiiverseOAuthClient : IDisposable
 	{
 		private const string AUTH_FORWARD_URI = "https://miiverse.nintendo.net/auth/forward";
 		private const string AUTHORIZE_URI = "https://id.nintendo.net/oauth/authorize";

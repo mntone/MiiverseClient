@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Mntone.MiiverseClient.Entities.Response
 {
-    public sealed class InGameResponse
+    public  class InGameResponse
     {
-        internal InGameResponse(double nextPageUrl, IReadOnlyList<Post.Post> posts)
+        public InGameResponse(double nextPageUrl, IReadOnlyList<Post.Post> posts)
         {
             NextPageTimestamp = nextPageUrl;
             Posts = posts;
