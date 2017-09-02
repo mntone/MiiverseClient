@@ -112,8 +112,9 @@ namespace Mntone.MiiverseClient.Managers
 						AllowAutoRedirect = false,
 						AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip,
 					};
+
 					this._Client = new HttpClient(this._clientHandler, true);
-				}
+                }
 				return this._Client;
 			}
 		}

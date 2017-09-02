@@ -20,7 +20,7 @@ namespace Mntone.MiiverseClient.Context
 	{
 		private bool _isEnabled = true;
 
-		public MiiverseContext(string userName, string clientID, string sessionValue)
+		public MiiverseContext(string userName, string clientID, string sessionValue, string language = "en-US")
 		{
 			UserName = userName;
 			ClientID = clientID;
@@ -34,8 +34,16 @@ namespace Mntone.MiiverseClient.Context
 				Secure = true,
 				HttpOnly = true,
 			});
-			Client = new HttpClient(handler, true);
-		}
+            handler.CookieContainer.Add(MiiverseConstantValues.MIIVERSE_DOMAIN_URI, new Cookie("lang", language, "/", MiiverseConstantValues.MIIVERSE_DOMAIN)
+            {
+                Secure = true,
+                HttpOnly = true,
+            });
+            var client = new HttpClient(handler, true);
+            client.DefaultRequestHeaders.Add("Accept-Language", $"{language},en;q=0.5");
+            Client = client;
+
+        }
 
 	    public Task<GameResponse> GetGameAsync(Game game, string nextPageUrl = "")
 	    {
