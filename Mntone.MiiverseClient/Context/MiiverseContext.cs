@@ -72,7 +72,7 @@ namespace Mntone.MiiverseClient.Context
                         .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("list post-list"));
 
                 var postNodes = postListNode?.ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
-                var posts = postNodes.Select(ParsePost).ToList();
+                var posts = postNodes == null ? new List<Post>() : postNodes.Select(ParsePost).ToList();
                 double postTime = 0;
                 if (posts.Any())
                 {
@@ -111,7 +111,7 @@ namespace Mntone.MiiverseClient.Context
                         .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("list post-list"));
 
                 var postNodes = postListNode?.ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
-                var posts = postNodes.Select(ParsePost).ToList();
+                var posts = postNodes == null ? new List<Post>() : postNodes.Select(ParsePost).ToList();
                 double postTime = 0;
                 if(posts.Any())
                 {
@@ -150,7 +150,7 @@ namespace Mntone.MiiverseClient.Context
                         .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("list multi-timeline-post-list"));
 
                 var postNodes = postListNode?.ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
-                var posts = postNodes.Select(ParsePost).ToList();
+                var posts = postNodes == null ? new List<Post>() : postNodes.Select(ParsePost).ToList();
                 double postTime = 0;
                 if (posts.Any())
                 {
@@ -189,7 +189,7 @@ namespace Mntone.MiiverseClient.Context
                         .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("list post-list"));
 
                 var postNodes = postListNode?.ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
-                var posts = postNodes.Select(ParsePost).ToList();
+                var posts = postNodes == null ? new List<Post>() : postNodes.Select(ParsePost).ToList();
                 double postTime = 0;
                 if (posts.Any())
                 {
@@ -228,7 +228,7 @@ namespace Mntone.MiiverseClient.Context
                         .FirstOrDefault(node => node.GetAttributeValue("class", string.Empty).Contains("list post-list"));
 
                 var postNodes = postListNode?.ChildNodes.Where(n => n.HasClassName("post") && !n.HasClassName("none"));
-                var posts = postNodes.Select(ParsePost).ToList();
+                var posts = postNodes == null ? new List<Post>() : postNodes.Select(ParsePost).ToList();
                 double postTime = 0;
                 if (posts.Any())
                 {
