@@ -54,7 +54,7 @@ namespace Mntone.MiiverseClient.Context
             {
                 // I know it's JSON encoded and it would be better to just decode/encode it.
                 // But the service it going away so screw it.
-                var currentDate = ReturnEpochTime(DateTime.Now);
+                var currentDate = ReturnEpochTime(DateTime.UtcNow);
                 baseUrl += game.TitleUrl + $"/artwork?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C{(int)currentDate}%2C{currentDate}%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
             }
             else
@@ -92,7 +92,7 @@ namespace Mntone.MiiverseClient.Context
             {
                 // I know it's JSON encoded and it would be better to just decode/encode it.
                 // But the service it going away so screw it.
-                var currentDate = ReturnEpochTime(DateTime.Now);
+                var currentDate = ReturnEpochTime(DateTime.UtcNow);
                 baseUrl += game.TitleUrl + $"/diary?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C{(int)currentDate}%2C{currentDate}%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
             }
             else
@@ -130,7 +130,7 @@ namespace Mntone.MiiverseClient.Context
             {
                 // I know it's JSON encoded and it would be better to just decode/encode it.
                 // But the service it going away so screw it.
-                var currentDate = ReturnEpochTime(DateTime.Now);
+                var currentDate = ReturnEpochTime(DateTime.UtcNow);
                 baseUrl += game.TitleUrl + $"/topic?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C{(int)currentDate}%2C{currentDate}%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
             }
             else
@@ -168,7 +168,7 @@ namespace Mntone.MiiverseClient.Context
             {
                 // I know it's JSON encoded and it would be better to just decode/encode it.
                 // But the service it going away so screw it.
-                var currentDate = ReturnEpochTime(DateTime.Now);
+                var currentDate = ReturnEpochTime(DateTime.UtcNow);
                 baseUrl += game.TitleUrl + $"/in_game?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C{(int)currentDate}%2C{currentDate}%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
             }
             else
@@ -206,7 +206,7 @@ namespace Mntone.MiiverseClient.Context
             {
                 // I know it's JSON encoded and it would be better to just decode/encode it.
                 // But the service it going away so screw it.
-                var currentDate = ReturnEpochTime(DateTime.Now);
+                var currentDate = ReturnEpochTime(DateTime.UtcNow);
                 baseUrl += game.TitleUrl + $"/old?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C{(int)currentDate}%2C{currentDate}%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
             }
             else
@@ -684,7 +684,7 @@ namespace Mntone.MiiverseClient.Context
 
             if (input.Contains("less than a minute ago"))
             {
-                return DateTime.Now;
+                return DateTime.UtcNow;
             }
 
             if (input.Contains("minute"))
@@ -710,7 +710,7 @@ namespace Mntone.MiiverseClient.Context
             string numberStr = input.Split(' ')[0];
             int number;
             if (int.TryParse(numberStr, out number))
-                result = DateTime.Now.AddMinutes(-number * minutesMultiplier);
+                result = DateTime.UtcNow.AddMinutes(-number * minutesMultiplier);
             // We assume Now instead of UTC, because the site is configured for your local.
             return result;
         }
