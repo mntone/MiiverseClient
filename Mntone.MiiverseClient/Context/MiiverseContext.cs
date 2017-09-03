@@ -13,6 +13,7 @@ using Mntone.MiiverseClient.Entities.Response;
 using Mntone.MiiverseClient.Entities.User;
 using Mntone.MiiverseClient.Tools.Constants;
 using Mntone.MiiverseClient.Tools.Extensions;
+using System.Diagnostics;
 
 namespace Mntone.MiiverseClient.Context
 {
@@ -45,16 +46,19 @@ namespace Mntone.MiiverseClient.Context
 
         }
 
-        public Task<DrawingResponse> GetDrawingAsync(Game game, double lastPostTime = 0)
+        public Task<DrawingResponse> GetDrawingAsync(Game game, double lastPostTime = 0, double currentDate = 0)
         {
             AccessCheck();
 
-            var baseUrl = "https://miiverse.nintendo.net/";
+            var baseUrl = "https://miiverse.nintendo.net";
+            if (currentDate == 0)
+            {
+                currentDate = ReturnEpochTime(DateTime.UtcNow);
+            }
             if (lastPostTime != 0)
             {
                 // I know it's JSON encoded and it would be better to just decode/encode it.
                 // But the service it going away so screw it.
-                var currentDate = ReturnEpochTime(DateTime.UtcNow);
                 baseUrl += game.TitleUrl + $"/artwork?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C{(int)currentDate}%2C{currentDate}%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
             }
             else
@@ -79,7 +83,8 @@ namespace Mntone.MiiverseClient.Context
                 {
                     postTime = -(ReturnEpochTime(posts.Last().PostedDate));
                 }
-                return new DrawingResponse(postTime, posts);
+
+                return new DrawingResponse(currentDate, postTime, posts);
             });
         }
 
@@ -711,7 +716,8 @@ namespace Mntone.MiiverseClient.Context
             int number;
             if (int.TryParse(numberStr, out number))
                 result = DateTime.UtcNow.AddMinutes(-number * minutesMultiplier);
-            // We assume Now instead of UTC, because the site is configured for your local.
+            // We assume Now instead of UTC, because the site is configured for your local
+            Debug.WriteLine($"Input: {input} - Result: {result} - UTCNow: {DateTime.UtcNow}");
             return result;
         }
     }

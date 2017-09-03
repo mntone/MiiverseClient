@@ -8,11 +8,14 @@ namespace Mntone.MiiverseClient.Entities.Response
 {
     public  class DrawingResponse
     {
-        public DrawingResponse(double nextPageUrl, IReadOnlyList<Post.Post> posts)
+        public DrawingResponse(double currentTimestamp, double nextPageUrl, IReadOnlyList<Post.Post> posts)
         {
+            CurrentTimestamp = currentTimestamp;
             NextPageTimestamp = nextPageUrl;
             Posts = posts;
         }
+
+        public double CurrentTimestamp { get; set; }
 
         public double NextPageTimestamp { get; set; }
 
