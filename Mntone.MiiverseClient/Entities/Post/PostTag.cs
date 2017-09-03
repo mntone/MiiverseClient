@@ -5,6 +5,11 @@ namespace Mntone.MiiverseClient.Entities.Post
 	[DataContract]
 	public  class PostTag
 	{
+        public PostTag()
+        {
+
+        }
+
 		public PostTag(TagType tagType, string tagID, string tag)
 		{
 			this.TagType = tagType;

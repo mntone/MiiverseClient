@@ -5,6 +5,11 @@ namespace Mntone.MiiverseClient.Entities.Post
 {
 	public  class PostCommunity
 	{
+        public PostCommunity()
+        {
+
+        }
+
 		public PostCommunity(ulong titleID, ulong id, string name, Uri iconUri)
 		{
 			this.TitleID = titleID;
