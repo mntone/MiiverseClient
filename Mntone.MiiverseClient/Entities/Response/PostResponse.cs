@@ -8,6 +8,6 @@ namespace Mntone.MiiverseClient.Entities.Response
             this.Post = post;
         }
 
-        public Post.Post Post { get; }
+        public Post.Post Post { get; set; }
     }
 }

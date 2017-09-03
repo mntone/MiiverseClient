@@ -13,6 +13,6 @@ namespace Mntone.MiiverseClient.Entities.Response
         {
             this.Games = game;
         }
-        public List<Game> Games { get; } 
+        public List<Game> Games { get; set; } 
     }
 }

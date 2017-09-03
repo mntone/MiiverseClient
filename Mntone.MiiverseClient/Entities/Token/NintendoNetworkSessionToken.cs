@@ -12,9 +12,9 @@ namespace Mntone.MiiverseClient.Entities.Token
 			this.State = state;
 		}
 
-		public string ClientID { get; }
-		public string ResponseType { get; }
-		public Uri RedirectUri { get; }
-		public string State { get; }
+		public string ClientID { get; set; }
+		public string ResponseType { get; set; }
+		public Uri RedirectUri { get; set; }
+		public string State { get; set; }
 	}
 }

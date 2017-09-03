@@ -83,31 +83,31 @@ namespace Mntone.MiiverseClient.Entities.Post
 		/// Post ID
 		/// </summary>
 		[DataMember(Name = "id")]
-		public string ID { get; }
+		public string ID { get; set; }
 
 		/// <summary>
 		/// Tag
 		/// </summary>
 		[DataMember(Name = "tag")]
-		public PostTag Tag { get; }
+		public PostTag Tag { get; set; }
 
 		/// <summary>
 		/// Text content
 		/// </summary>
 		[DataMember(Name = "text")]
-		public string Text { get; }
+		public string Text { get; set; }
 
         /// <summary>
 		/// The date of the post
 		/// </summary>
 		[DataMember(Name = "posted_date")]
-        public DateTime PostedDate { get; }
+        public DateTime PostedDate { get; set; }
 
 		/// <summary>
 		/// Image content
 		/// </summary>
 		[DataMember(Name = "image_uri")]
-		public Uri ImageUri { get; }
+		public Uri ImageUri { get; set; }
 
 		/// <summary>
 		/// Reply count
@@ -124,43 +124,43 @@ namespace Mntone.MiiverseClient.Entities.Post
 		/// <summary>
 		/// Played or not
 		/// </summary>
-		public bool IsPlayed { get; }
+		public bool IsPlayed { get; set; }
 
 		/// <summary>
 		/// Spoiler or not
 		/// </summary>
 		[DataMember(Name = "spoiler")]
-		public bool IsSpoiler { get; }
+		public bool IsSpoiler { get; set; }
 
         /// <summary>
 		/// Is Accepting Responses
 		/// </summary>
 		[DataMember(Name = "accepting")]
-        public bool IsAcceptingResponse { get; }
+        public bool IsAcceptingResponse { get; set; }
 
         /// <summary>
 		/// Topic Type
 		/// </summary>
         [DataMember(Name = "discussion_type")]
-        public string DiscussionType { get; }
+        public string DiscussionType { get; set; }
 
 		/// <summary>
 		/// Screen Shot
 		/// </summary>
 		[DataMember(Name = "screen_shot_uri")]
-		public Uri ScreenShotUri { get; }
+		public Uri ScreenShotUri { get; set; }
 
 		/// <summary>
 		/// User
 		/// </summary>
 		[DataMember(Name = "user")]
-		public PostUser User { get; }
+		public PostUser User { get; set; }
 
 		/// <summary>
 		/// Feeling
 		/// </summary>
 		[DataMember(Name = "feeling")]
-		public FeelingType Feeling { get; }
+		public FeelingType Feeling { get; set; }
 
 		/// <summary>
 		/// Community

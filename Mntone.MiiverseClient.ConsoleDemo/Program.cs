@@ -45,8 +45,8 @@ namespace Mntone.MiiverseClient.ConsoleDemo
             //var gameTest = gameList.Games.First(node => node.Id == "community-14866558073673172583");
 
             var gameTest = new Game("community-14866558073673172583", "Splatoon", "/titles/14866558073673172576/14866558073673172583", new Uri("https://d3esbfg30x759i.cloudfront.net/cnj/zlCfzTYBRmcD4DW6Q5"), "platform-tag-wiiu.png", "Wii U Games");
-
-            var indieGameDiscuss = ctx.GetDiscussAsync(gameTest).GetAwaiter().GetResult();
+            double timeTest = -1504369346.03892;
+            var indieGameDiscuss = ctx.GetDiscussAsync(gameTest, timeTest).GetAwaiter().GetResult();
             var indieGameInGame = ctx.GetInGameAsync(gameTest).GetAwaiter().GetResult();
             var indieGameOld = ctx.GetOldGameAsync(gameTest).GetAwaiter().GetResult();
             var indieGameDrawing = ctx.GetDrawingAsync(gameTest).GetAwaiter().GetResult();

@@ -502,11 +502,11 @@ namespace Mntone.MiiverseClient.Context
 			_isEnabled = false;
 		}
 
-		public string UserName { get; }
-		public string ClientID { get; }
-		public string SessionValue { get; }
+		public string UserName { get; set; }
+		public string ClientID { get; set; }
+		public string SessionValue { get; set; }
 
-		private HttpClient Client { get; }
+		private HttpClient Client { get; set; }
 
         private Post ParsePost(HtmlNode postNode)
         {

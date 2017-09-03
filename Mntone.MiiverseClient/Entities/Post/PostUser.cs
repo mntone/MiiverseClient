@@ -19,12 +19,12 @@ namespace Mntone.MiiverseClient.Entities.Post
 		}
 
 		[DataMember(Name = "name")]
-		public string Name { get; }
+		public string Name { get; set; }
 
 		[DataMember(Name = "screen_name")]
-		public string ScreenName { get; }
+		public string ScreenName { get; set; }
 
 		[DataMember(Name = "icon_uri")]
-		public Uri IconUri { get; }
+		public Uri IconUri { get; set; }
 	}
 }

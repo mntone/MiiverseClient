@@ -38,33 +38,33 @@ namespace Mntone.MiiverseClient.Entities.User
         }
 
         [DataMember(Name = "name")]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [DataMember(Name = "screen_name")]
-        public string ScreenName { get; }
+        public string ScreenName { get; set; }
 
         [DataMember(Name = "icon_uri")]
-        public Uri IconUri { get; }
+        public Uri IconUri { get; set; }
 
         [DataMember(Name = "country")]
-        public string Country { get; }
+        public string Country { get; set; }
 
         [DataMember(Name = "birthday")]
-        public string Birthday { get; }
+        public string Birthday { get; set; }
 
         [DataMember(Name = "game_skill")]
-        public GameSkill GameSkill { get; }
+        public GameSkill GameSkill { get; set; }
 
         [DataMember(Name = "game")]
-        public List<GameSystem> GameSystem { get; }
+        public List<GameSystem> GameSystem { get; set; }
 
         [DataMember(Name = "favorite_game_genre")]
-        public List<string> FavoriteGameGenre { get; }
+        public List<string> FavoriteGameGenre { get; set; }
 
         [DataMember(Name = "is_following")]
-        public bool IsFollowing { get; }
+        public bool IsFollowing { get; set; }
 
         [DataMember(Name = "is_current_user")]
-        public bool IsCurrentUser { get; }
+        public bool IsCurrentUser { get; set; }
     }
 }

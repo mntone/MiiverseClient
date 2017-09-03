@@ -17,15 +17,15 @@ namespace Mntone.MiiverseClient.Entities.Response
             BeforeRenewal = before;
         }
 
-        public string NextPageUrl { get; }
+        public string NextPageUrl { get; set; }
 
-        public bool CanPost { get; }
+        public bool CanPost { get; set; }
 
-        public bool IsFavorite { get; }
+        public bool IsFavorite { get; set; }
 
-        public bool BeforeRenewal { get; }
+        public bool BeforeRenewal { get; set; }
 
-        public IReadOnlyList<Post.Post> Posts { get; }
+        public IReadOnlyList<Post.Post> Posts { get; set; }
     }
 
     public  class OldGameResponse
@@ -36,8 +36,8 @@ namespace Mntone.MiiverseClient.Entities.Response
             Posts = posts;
         }
 
-        public double NextPageTimestamp { get; }
+        public double NextPageTimestamp { get; set; }
 
-        public IReadOnlyList<Post.Post> Posts { get; }
+        public IReadOnlyList<Post.Post> Posts { get; set; }
     }
 }

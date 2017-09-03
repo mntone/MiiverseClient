@@ -14,8 +14,8 @@ namespace Mntone.MiiverseClient.Entities.Response
             Posts = posts;
         }
 
-        public double NextPageTimestamp { get; }
+        public double NextPageTimestamp { get; set; }
 
-        public IReadOnlyList<Post.Post> Posts { get; }
+        public IReadOnlyList<Post.Post> Posts { get; set; }
     }
 }

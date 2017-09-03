@@ -13,6 +13,6 @@ namespace Mntone.MiiverseClient.Entities.Response
             User = user;
         }
 
-        public User.User User { get; }
+        public User.User User { get; set; }
     }
 }

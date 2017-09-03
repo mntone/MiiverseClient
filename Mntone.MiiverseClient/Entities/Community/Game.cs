@@ -21,21 +21,21 @@ namespace Mntone.MiiverseClient.Entities.Community
         }
 
         [DataMember(Name = "id")]
-        public string Id { get; }
+        public string Id { get; set; }
 
         [DataMember(Name = "title")]
-        public string Title { get; }
+        public string Title { get; set; }
 
         [DataMember(Name = "title_url")]
-        public string TitleUrl { get; }
+        public string TitleUrl { get; set; }
 
         [DataMember(Name = "icon_uri")]
-        public Uri IconUri { get; }
+        public Uri IconUri { get; set; }
 
         [DataMember(Name = "platform")]
-        public Platform Platform { get; }
+        public Platform Platform { get; set; }
 
         [DataMember(Name = "type")]
-        public string Type { get; }
+        public string Type { get; set; }
     }
 }
