@@ -54,7 +54,8 @@ namespace Mntone.MiiverseClient.Context
             {
                 // I know it's JSON encoded and it would be better to just decode/encode it.
                 // But the service it going away so screw it.
-                baseUrl += game.TitleUrl + $"/artwork?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C1504377954%2C1504377954.31637%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
+                var currentDate = ReturnEpochTime(DateTime.Now);
+                baseUrl += game.TitleUrl + $"/artwork?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C{(int)currentDate}%2C{currentDate}%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
             }
             else
             {
@@ -76,9 +77,7 @@ namespace Mntone.MiiverseClient.Context
                 double postTime = 0;
                 if (posts.Any())
                 {
-                    var epoch = posts.Last().PostedDate - new DateTime(1970, 1, 1);
-                    int secondsSinceEpoch = (int)epoch.TotalSeconds;
-                    postTime = -(secondsSinceEpoch);
+                    postTime = -(ReturnEpochTime(posts.Last().PostedDate));
                 }
                 return new DrawingResponse(postTime, posts);
             });
@@ -93,7 +92,8 @@ namespace Mntone.MiiverseClient.Context
             {
                 // I know it's JSON encoded and it would be better to just decode/encode it.
                 // But the service it going away so screw it.
-                baseUrl += game.TitleUrl + $"/diary?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C1504377954%2C1504377954.31637%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
+                var currentDate = ReturnEpochTime(DateTime.Now);
+                baseUrl += game.TitleUrl + $"/diary?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C{(int)currentDate}%2C{currentDate}%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
             }
             else
             {
@@ -115,9 +115,7 @@ namespace Mntone.MiiverseClient.Context
                 double postTime = 0;
                 if(posts.Any())
                 {
-                    var epoch = posts.Last().PostedDate - new DateTime(1970, 1, 1);
-                    int secondsSinceEpoch = (int)epoch.TotalSeconds;
-                    postTime = -(secondsSinceEpoch);
+                    postTime = -(ReturnEpochTime(posts.Last().PostedDate));
                 }
                 return new DiaryResponse(postTime, posts);
             });
@@ -132,7 +130,8 @@ namespace Mntone.MiiverseClient.Context
             {
                 // I know it's JSON encoded and it would be better to just decode/encode it.
                 // But the service it going away so screw it.
-                baseUrl += game.TitleUrl + $"/topic?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C1504377954%2C1504377954.31637%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
+                var currentDate = ReturnEpochTime(DateTime.Now);
+                baseUrl += game.TitleUrl + $"/topic?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C{(int)currentDate}%2C{currentDate}%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
             }
             else
             {
@@ -154,9 +153,7 @@ namespace Mntone.MiiverseClient.Context
                 double postTime = 0;
                 if (posts.Any())
                 {
-                    var epoch = posts.Last().PostedDate - new DateTime(1970, 1, 1);
-                    int secondsSinceEpoch = (int)epoch.TotalSeconds;
-                    postTime = -(secondsSinceEpoch);
+                    postTime = -(ReturnEpochTime(posts.Last().PostedDate));
                 }
                 return new DiscussionResponse(postTime, posts);
             });
@@ -171,7 +168,8 @@ namespace Mntone.MiiverseClient.Context
             {
                 // I know it's JSON encoded and it would be better to just decode/encode it.
                 // But the service it going away so screw it.
-                baseUrl += game.TitleUrl + $"/in_game?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1}%2C1504377954%2C1504377954.31637%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
+                var currentDate = ReturnEpochTime(DateTime.Now);
+                baseUrl += game.TitleUrl + $"/in_game?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C{(int)currentDate}%2C{currentDate}%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
             }
             else
             {
@@ -193,9 +191,7 @@ namespace Mntone.MiiverseClient.Context
                 double postTime = 0;
                 if (posts.Any())
                 {
-                    var epoch = posts.Last().PostedDate - new DateTime(1970, 1, 1);
-                    int secondsSinceEpoch = (int)epoch.TotalSeconds;
-                    postTime = -(secondsSinceEpoch);
+                    postTime = -(ReturnEpochTime(posts.Last().PostedDate));
                 }
                 return new InGameResponse(postTime, posts);
             });
@@ -210,7 +206,8 @@ namespace Mntone.MiiverseClient.Context
             {
                 // I know it's JSON encoded and it would be better to just decode/encode it.
                 // But the service it going away so screw it.
-                baseUrl += game.TitleUrl + $"/old?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C1504377954%2C1504377954.31637%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
+                var currentDate = ReturnEpochTime(DateTime.Now);
+                baseUrl += game.TitleUrl + $"/old?page_param=%7B%22upinfo%22%3A%22{lastPostTime * -1 }%2C{(int)currentDate}%2C{currentDate}%22%2C%22reftime%22%3A%22{lastPostTime}%22%2C%22order%22%3A%22desc%22%2C%22per_page%22%3A%2250%22%7D ";
             }
             else
             {
@@ -232,9 +229,7 @@ namespace Mntone.MiiverseClient.Context
                 double postTime = 0;
                 if (posts.Any())
                 {
-                    var epoch = posts.Last().PostedDate - new DateTime(1970, 1, 1);
-                    int secondsSinceEpoch = (int)epoch.TotalSeconds;
-                    postTime = -(secondsSinceEpoch);
+                    postTime = -(ReturnEpochTime(posts.Last().PostedDate));
                 }
                 return new OldGameResponse(postTime, posts);
             });
@@ -495,6 +490,12 @@ namespace Mntone.MiiverseClient.Context
 				throw new Exception();
 			}
 		}
+
+        private double ReturnEpochTime(DateTime postedDate)
+        {
+            var epoch = postedDate - new DateTime(1970, 1, 1);
+            return epoch.TotalSeconds;
+        }
 
 		public void Dispose()
 		{
