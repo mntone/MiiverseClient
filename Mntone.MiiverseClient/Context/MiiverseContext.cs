@@ -682,6 +682,11 @@ namespace Mntone.MiiverseClient.Context
             DateTime result = DateTime.MinValue;
             int minutesMultiplier = 0;
 
+            if (input.Contains("less than a minute ago"))
+            {
+                return DateTime.Now;
+            }
+
             if (input.Contains("minute"))
                 minutesMultiplier = 1;
             else
