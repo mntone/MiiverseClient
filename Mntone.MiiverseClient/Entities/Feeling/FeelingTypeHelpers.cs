@@ -38,7 +38,8 @@ namespace Mntone.MiiverseClient.Entities.Feeling
 				return FeelingType.Puzzled;
 			}
 
-			throw new Exception();
+            // "anonymous" shows as "Happy", so just say it's happy.
+            return FeelingType.Happy;
 		}
 
 		public static Uri GetNormalFaceIconUri(Uri faceIconUri)

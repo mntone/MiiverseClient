@@ -556,6 +556,7 @@ namespace Mntone.MiiverseClient.Context
 
             string text = null;
             Uri imageUri = null;
+            
             var textNodes = postContentNode.GetElementsByClassName("post-content-text");
             var isImagePost = !textNodes.Any();
             if (isImagePost)
