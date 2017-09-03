@@ -517,7 +517,7 @@ namespace Mntone.MiiverseClient.Context
                 var timestampAnchorNode = postNode.Descendants("p").Where(n => n.GetAttributeValue("class", string.Empty).Contains("timestamp")).FirstOrDefault();
                 if (timestampAnchorNode == null)
                     timestampAnchorNode = postNode.Descendants("a").Where(n => n.GetAttributeValue("class", string.Empty).Contains("timestamp")).FirstOrDefault();
-                dateTime = this.ConvertRelativeTime(timestampAnchorNode.InnerText.ToLower().Replace("&middot;", "").Replace("Spoilers", "").Trim());
+                dateTime = this.ConvertRelativeTime(timestampAnchorNode.InnerText.ToLower().Replace("&middot;", "").Replace("spoilers", "").Trim());
             }
             catch (Exception)
             {
