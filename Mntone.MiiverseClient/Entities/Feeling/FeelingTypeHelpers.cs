@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Entities.Feeling
 {
 	public static class FeelingTypeHelpers
 	{
@@ -38,7 +38,8 @@ namespace Mntone.MiiverseClient
 				return FeelingType.Puzzled;
 			}
 
-			throw new Exception();
+            // "anonymous" shows as "Happy", so just say it's happy.
+            return FeelingType.Happy;
 		}
 
 		public static Uri GetNormalFaceIconUri(Uri faceIconUri)
@@ -47,7 +48,7 @@ namespace Mntone.MiiverseClient
 			return GetNormalFaceIconUri(faceIconUri);
 		}
 
-		internal static Uri GetNormalFaceIconUri(Uri faceIconUri, FeelingType feeling)
+		public static Uri GetNormalFaceIconUri(Uri faceIconUri, FeelingType feeling)
 		{
 			if (feeling == FeelingType.Normal)
 			{

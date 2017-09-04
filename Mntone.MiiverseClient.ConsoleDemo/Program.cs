@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Mntone.MiiverseClient.Entities.Community;
+using Mntone.MiiverseClient.Entities.Token;
+using Mntone.MiiverseClient.Managers;
 
 namespace Mntone.MiiverseClient.ConsoleDemo
 {
@@ -20,17 +24,82 @@ namespace Mntone.MiiverseClient.ConsoleDemo
 			var userName = Console.ReadLine();
 			Console.Write("Password: ");
 			var password = GetPassword();
-			Console.WriteLine("-----------");
+			Console.WriteLine("");
+            Console.WriteLine("-----------");
 
-			var ctx = oauthClient.Authorize(token, new NintendoNetworkAuthenticationToken(userName, password)).GetAwaiter().GetResult();
-			var activityResponse = ctx.GetActivityAsync().GetAwaiter().GetResult();
+            var ctx = oauthClient.Authorize(token, new NintendoNetworkAuthenticationToken(userName, password)).GetAwaiter().GetResult();
+
+		    var gameList = ctx.GetCommunityGameListAsync(GameSearchList.All, GamePlatformSearch.Wiiu, 300).GetAwaiter().GetResult();
+		    foreach (var game in gameList.Games)
+		    {
+                Console.WriteLine("Title: {0}", game.Title);
+                Console.WriteLine("TitleUrl: {0}", game.TitleUrl);
+                Console.WriteLine("Id: {0}", game.Id);
+                Console.WriteLine("Platform: {0}", game.Platform);
+                Console.WriteLine("IconUri: {0}", game.IconUri);
+                Console.WriteLine("Type: {0}", game.Type);
+                Console.WriteLine("");
+                Console.WriteLine("-----------");
+            }
+
+            //var gameTest = gameList.Games.First(node => node.Id == "community-14866558073673172583");
+
+            var gameTest = new Game("community-14866558073673172583", "Splatoon", "/titles/14866558073673172576/14866558073673172583", new Uri("https://d3esbfg30x759i.cloudfront.net/cnj/zlCfzTYBRmcD4DW6Q5"), "platform-tag-wiiu.png", "Wii U Games");
+            double timeTest = -1504369346.03892;
+            var indieGameDiscuss = ctx.GetDiscussAsync(gameTest, timeTest).GetAwaiter().GetResult();
+            var indieGameInGame = ctx.GetInGameAsync(gameTest).GetAwaiter().GetResult();
+            var indieGameOld = ctx.GetOldGameAsync(gameTest).GetAwaiter().GetResult();
+            var indieGameDrawing = ctx.GetDrawingAsync(gameTest).GetAwaiter().GetResult();
+            var indieGame = ctx.GetGameAsync(gameTest).GetAwaiter().GetResult();
+            var indieGameDiary = ctx.GetDiaryAsync(gameTest).GetAwaiter().GetResult();
+
+            var userEntity = ctx.GetUserProfileAsync(userName).GetAwaiter().GetResult();
+            Console.WriteLine("Name: {0}", userEntity.User.Name);
+            Console.WriteLine("ScreenName: {0}", userEntity.User.ScreenName);
+            Console.WriteLine("IconUri: {0}", userEntity.User.IconUri);
+            Console.WriteLine("Country: {0}", userEntity.User.Country);
+            Console.WriteLine("Birthday: {0}", userEntity.User.Birthday);
+		    foreach (var gameSystem in userEntity.User.GameSystem)
+		    {
+                Console.WriteLine("GameSystem: {0}", gameSystem);
+            }
+            foreach (var gameGenre in userEntity.User.FavoriteGameGenre)
+            {
+                Console.WriteLine("GameGenre: {0}", gameGenre);
+            }
+            Console.WriteLine("GameSkill: {0}", userEntity.User.GameSkill);
+            Console.WriteLine("IsFollowing: {0}", userEntity.User.IsFollowing);
+            Console.WriteLine("IsCurrentUser: {0}", userEntity.User.IsCurrentUser);
+            Console.WriteLine("-----------");
+            var activityResponse = ctx.GetActivityAsync().GetAwaiter().GetResult();
+
 			foreach (var post in activityResponse.Posts)
 			{
 				Console.WriteLine("{0}: {1}{2}", post.User.ScreenName, post.Text, post.ImageUri);
 				Console.WriteLine("-----------");
 			}
 
-			ctx.SignOutAsync().GetAwaiter().GetResult();
+		    if (activityResponse.Posts.Any())
+		    {
+		        var activity = activityResponse.Posts.First();
+		        var postResponse = ctx.GetPostAsync(activity.ID).GetAwaiter().GetResult();
+
+                Console.WriteLine("Get Post " + activity.ID);
+                Console.WriteLine("{0}: {1}{2}", postResponse.Post.User.ScreenName, postResponse.Post.Text, postResponse.Post.ImageUri);
+                Console.WriteLine("-----------");
+            }
+
+            var userFeedResponse = ctx.GetUserFeedAsync("drasticactions").GetAwaiter().GetResult();
+            foreach (var post in userFeedResponse.Posts)
+            {
+                Console.WriteLine("{0}: {1}{2}", post.User.ScreenName, post.Text, post.ImageUri);
+                Console.WriteLine("-----------");
+            }
+
+            ctx.SignOutAsync().GetAwaiter().GetResult();
+
+            Console.WriteLine("Press any key to exit");
+            Console.ReadKey();
 		}
 
 		private static string GetPassword()

@@ -1,4 +1,4 @@
-﻿namespace Mntone.MiiverseClient
+﻿namespace Mntone.MiiverseClient.Entities.Feeling
 {
 	public enum FeelingType
 	{

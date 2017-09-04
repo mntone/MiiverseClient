@@ -1,10 +1,15 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Entities.Post
 {
 	[DataContract]
-	public sealed class PostTag
+	public  class PostTag
 	{
+        public PostTag()
+        {
+
+        }
+
 		public PostTag(TagType tagType, string tagID, string tag)
 		{
 			this.TagType = tagType;
@@ -16,18 +21,18 @@ namespace Mntone.MiiverseClient
 		/// Tag Type
 		/// </summary>
 		[DataMember(Name = "tag_type")]
-		public TagType TagType { get; }
+		public TagType TagType { get; set; }
 
 		/// <summary>
 		/// Tag ID
 		/// </summary>
 		[DataMember(Name = "tag_id")]
-		public string TagID { get; }
+		public string TagID { get; set; }
 
 		/// <summary>
 		/// Tag
 		/// </summary>
 		[DataMember(Name = "tag")]
-		public string Tag { get; }
+		public string Tag { get; set; }
 	}
 }

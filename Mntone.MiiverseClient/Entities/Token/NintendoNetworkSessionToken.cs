@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Entities.Token
 {
-	public sealed class NintendoNetworkSessionToken
+	public  class NintendoNetworkSessionToken
 	{
 		public NintendoNetworkSessionToken(string clientID, string responseType, string redirectUri, string state)
 		{
@@ -12,9 +12,9 @@ namespace Mntone.MiiverseClient
 			this.State = state;
 		}
 
-		public string ClientID { get; }
-		public string ResponseType { get; }
-		public Uri RedirectUri { get; }
-		public string State { get; }
+		public string ClientID { get; set; }
+		public string ResponseType { get; set; }
+		public Uri RedirectUri { get; set; }
+		public string State { get; set; }
 	}
 }

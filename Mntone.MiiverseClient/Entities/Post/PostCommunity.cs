@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Entities.Post
 {
-	public sealed class PostCommunity
+	public  class PostCommunity
 	{
-		internal PostCommunity(ulong titleID, ulong id, string name, Uri iconUri)
+        public PostCommunity()
+        {
+
+        }
+
+		public PostCommunity(ulong titleID, ulong id, string name, Uri iconUri)
 		{
 			this.TitleID = titleID;
 			this.ID = id;
@@ -17,24 +22,24 @@ namespace Mntone.MiiverseClient
 		/// Title ID
 		/// </summary>
 		[DataMember(Name = "title_id")]
-		public ulong TitleID { get; }
+		public ulong TitleID { get; set; }
 
 		/// <summary>
 		/// Community ID
 		/// </summary>
 		[DataMember(Name = "id")]
-		public ulong ID { get; }
+		public ulong ID { get; set; }
 
 		/// <summary>
 		/// Community Name
 		/// </summary>
 		[DataMember(Name = "name")]
-		public string Name { get; }
+		public string Name { get; set; }
 
 		/// <summary>
 		/// Community Icon Uri
 		/// </summary>
 		[DataMember(Name = "icon_uri")]
-		public Uri IconUri { get; }
+		public Uri IconUri { get; set; }
 	}
 }

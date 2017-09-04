@@ -1,9 +1,9 @@
-﻿using HtmlAgilityPack;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HtmlAgilityPack;
 
-namespace Mntone.MiiverseClient
+namespace Mntone.MiiverseClient.Tools.Extensions
 {
 	public static class HtmlAgilityExtensions
 	{
