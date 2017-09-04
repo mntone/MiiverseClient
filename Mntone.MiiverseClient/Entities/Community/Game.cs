@@ -10,12 +10,28 @@ namespace Mntone.MiiverseClient.Entities.Community
     [DataContract]
     public  class Game
     {
+        public Game()
+        {
+
+        }
+
         public Game(string id, string title, string titleUrl, Uri iconUri, string platform, string type)
         {
             Id = id;
             Title = title;
             TitleUrl = titleUrl;
             IconUri = iconUri;
+            Platform = GamePlatformHelper.DetectPlatformFromImageName(platform);
+            Type = type;
+        }
+
+        public Game(string id, string title, string titleUrl, Uri iconUri, Uri communityUri, string platform, string type)
+        {
+            Id = id;
+            Title = title;
+            TitleUrl = titleUrl;
+            IconUri = iconUri;
+            CommunityListIcon = communityUri;
             Platform = GamePlatformHelper.DetectPlatformFromImageName(platform);
             Type = type;
         }
@@ -31,6 +47,9 @@ namespace Mntone.MiiverseClient.Entities.Community
 
         [DataMember(Name = "icon_uri")]
         public Uri IconUri { get; set; }
+
+        [DataMember(Name = "community_icon_uri")]
+        public Uri CommunityListIcon { get; set; }
 
         [DataMember(Name = "platform")]
         public Platform Platform { get; set; }

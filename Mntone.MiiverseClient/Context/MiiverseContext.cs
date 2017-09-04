@@ -338,8 +338,11 @@ namespace Mntone.MiiverseClient.Context
 	                var id = game.GetAttributeValue("id", string.Empty);
                     var titleUrl = game.GetAttributeValue("data-href", string.Empty);
 
-	                var iconImg = game.Descendants("img").FirstOrDefault();
-	                var icon = iconImg?.GetAttributeValue("src", string.Empty);
+                    var communityIconImageNode = game.Descendants("img").FirstOrDefault(n => n.GetAttributeValue("class", string.Empty) == "community-list-cover");
+                    var communityListIcon = communityIconImageNode?.GetAttributeValue("src", string.Empty);
+
+                    var iconImg = game.Descendants("img").FirstOrDefault(n => n.GetAttributeValue("class", string.Empty) == "icon");
+                    var icon = iconImg?.GetAttributeValue("src", string.Empty);
 
 	                var body =
 	                    game.Descendants("div")
@@ -361,7 +364,14 @@ namespace Mntone.MiiverseClient.Context
 
 	                var gameTextSpan = body.Descendants("span").LastOrDefault();
 	                var gameText = gameTextSpan.InnerText;
-                    output.Add(new Game(id, title, titleUrl, new Uri(icon), imageFilename, gameText));
+                    if (string.IsNullOrEmpty(communityListIcon))
+                    {
+                        output.Add(new Game(id, title, titleUrl, new Uri(icon), imageFilename, gameText));
+                    }
+                    else
+                    {
+                        output.Add(new Game(id, title, titleUrl, new Uri(icon), new Uri(communityListIcon), imageFilename, gameText));
+                    }
 	            }
                 return new CommunityListResponse(output);
 	        });
