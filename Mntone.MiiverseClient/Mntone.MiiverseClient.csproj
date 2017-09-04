@@ -51,6 +51,7 @@
     <Compile Include="Entities\Response\PostResponse.cs" />
     <Compile Include="Entities\Response\UserFeedResponse.cs" />
     <Compile Include="Entities\Response\UserProfileResponse.cs" />
+    <Compile Include="Entities\Response\ViewRegion.cs" />
     <Compile Include="Entities\User\GameSkill.cs" />
     <Compile Include="Entities\User\GameSkillHelper.cs" />
     <Compile Include="Entities\User\GameSystem.cs" />

@@ -8,6 +8,7 @@ using Mntone.MiiverseClient.Context;
 using Mntone.MiiverseClient.Entities.Token;
 using Mntone.MiiverseClient.Tools.Constants;
 using Mntone.MiiverseClient.Tools.Extensions;
+using Mntone.MiiverseClient.Entities.Response;
 
 namespace Mntone.MiiverseClient.Managers
 {
@@ -58,7 +59,7 @@ namespace Mntone.MiiverseClient.Managers
 			});
 		}
 
-		public Task<MiiverseContext> Authorize(NintendoNetworkSessionToken sessionToken, NintendoNetworkAuthenticationToken authenticationToken)
+		public Task<MiiverseContext> Authorize(NintendoNetworkSessionToken sessionToken, NintendoNetworkAuthenticationToken authenticationToken, string language = "en-US", int region = ViewRegion.America)
 		{
             // TODO: Handle authentication errors (bad passwords, network down) better.
 		    try
@@ -83,7 +84,7 @@ namespace Mntone.MiiverseClient.Managers
                     .Where(c => c.Name == "ms" && c.Path == "/" && c.Secure && c.HttpOnly)
                     .OrderByDescending(c => c.Expires.Ticks)
                     .First();
-                return new MiiverseContext(authenticationToken.UserName, sessionToken.ClientID, cookie.Value);
+                return new MiiverseContext(authenticationToken.UserName, sessionToken.ClientID, cookie.Value, language, region);
             });
             }
 		    catch (Exception ex)
